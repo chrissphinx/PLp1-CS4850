@@ -51,5 +51,4 @@ public class ASTNodeBuilderFactory
   public ASTNodeBuilder makeASTNodeBuilder(NodeType t) {
     return new ASTNodeBuilder(t);
   }
-
 }
