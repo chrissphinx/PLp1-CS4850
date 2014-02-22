@@ -110,7 +110,9 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitProgram(@NotNull PLp1Parser.ProgramContext ctx) {
-    return ctx.getChild(0).accept(this);
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.PROGRAM)
+                  .addChild(ctx.getChild(0).accept(this))
+                  .build();
   }
 
   @Override
