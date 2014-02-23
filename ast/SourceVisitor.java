@@ -156,7 +156,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(MethodRefNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getId() + "." + n.getMethod();
   }
 
   @Override
@@ -225,6 +225,6 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(VarRefNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getId();
   }
 }

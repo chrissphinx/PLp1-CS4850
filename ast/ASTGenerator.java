@@ -172,6 +172,16 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitVarRef(@NotNull PLp1Parser.VarRefContext ctx) {
-    return null;
+    if (ctx.getChildCount() == 1) {
+      return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARREF)
+                    .addLabel(ctx.getChild(0).getText())
+                    .build();
+    } else {
+      return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.METHODREF)
+                    .addLabel(ctx.getChild(0).getText() +
+                              ctx.getChild(1).getText() +
+                              ctx.getChild(2).getText())
+                    .build();
+    }
   }
 }
