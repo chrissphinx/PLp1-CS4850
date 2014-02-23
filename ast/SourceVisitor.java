@@ -60,11 +60,10 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ConstListNode n) {
-    List<ASTNode> e = n.getExpressions();
     StringBuilder s = new StringBuilder("[ ");
 
-    for (ASTNode o : e) s.append(o.accept(this)).append(", ");
-    if (e.size() > 0) s.delete(s.length() - 2, s.length());
+    for (ASTNode o : n.getList()) s.append(o.accept(this)).append(", ");
+    if (n.getList().size() > 0) s.delete(s.length() - 2, s.length());
     s.append(" ]");
 
     return s.toString();
@@ -147,7 +146,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(LetNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return "let ( " + n.getLetDecls().accept(this) + " ) { " + n.getExpressionList().accept(this) + " }";
   }
 
   @Override
@@ -197,7 +196,11 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ProgramNode n) {
-    return (String) n.getChild(0).accept(this);
+    StringBuilder s = new StringBuilder();
+
+    for (ASTNode o : n.getList()) s.append(o.accept(this));
+
+    return s.toString();
   }
 
   @Override

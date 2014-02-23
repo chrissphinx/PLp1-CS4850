@@ -1,12 +1,12 @@
 package ast;
 
-public class LetDeclsNode extends ListNode {
+public class LetDeclsNode extends ListNode
+{
 
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public LetDeclsNode() {
   }
-
 }

@@ -1,6 +1,7 @@
 package ast;
 
-public class ProgramNode extends ListNode {
+public class ProgramNode extends ListNode
+{
 
   public Object accept(Visitor v) {
     return v.visit(this);
@@ -8,5 +9,4 @@ public class ProgramNode extends ListNode {
 
   public ProgramNode() {
   }
-
 }

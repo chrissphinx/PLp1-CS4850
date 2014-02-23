@@ -1,20 +1,20 @@
 package ast;
 
-public class LetDeclNode extends UnaryNode {
+public class LetDeclNode extends UnaryNode
+{
 
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public LetDeclNode() {
   }
 
   public String getId() {
-  return null;
+    return getLabel();
   }
 
   public ASTNode getExpression() {
-  return null;
+    return getChild(0);
   }
-
 }

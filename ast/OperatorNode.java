@@ -1,13 +1,13 @@
 package ast;
 
-public abstract class OperatorNode extends ASTNode {
+public abstract class OperatorNode extends ASTNode
+{
 
   public ASTNode getLeft() {
-  return null;
+    return getChild(0);
   }
 
   public ASTNode getRight() {
-  return null;
+    return getChild(1);
   }
-
 }

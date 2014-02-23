@@ -1,20 +1,20 @@
 package ast;
 
-public class LetNode extends BinaryNode {
+public class LetNode extends BinaryNode
+{
 
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public LetNode() {
   }
 
   public ASTNode getLetDecls() {
-  return null;
+    return getChild(0);
   }
 
   public ASTNode getExpressionList() {
-  return null;
+    return getChild(1);
   }
-
 }

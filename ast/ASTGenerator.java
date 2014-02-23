@@ -1,8 +1,9 @@
 package ast;
 
-import parser.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import parser.PLp1Parser;
+import parser.PLp1Visitor;
 
 public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements PLp1Visitor<ASTNode>
 {
@@ -62,14 +63,17 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitExpression(@NotNull PLp1Parser.ExpressionContext ctx) {
-    if (ctx.constantExp() != null) {
+    if (ctx.getChildCount() == 1) {
       return ctx.getChild(0).accept(this);
     } else return null;
   }
 
   @Override
   public ASTNode visitExpressionList(@NotNull PLp1Parser.ExpressionListContext ctx) {
-    return null;
+    ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.BODY);
+    for(int i = 0; i < ctx.getChildCount(); i++) {
+      b.addChild(ctx.getChild(i).accept(this));
+    } return b.build();
   }
 
   @Override
@@ -94,17 +98,26 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitLetDecl(@NotNull PLp1Parser.LetDeclContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.LETDECL)
+                  .addLabel(ctx.getChild(1).getText())
+                  .addChild(ctx.getChild(2).accept(this))
+                  .build();
   }
 
   @Override
   public ASTNode visitLetDecls(@NotNull PLp1Parser.LetDeclsContext ctx) {
-    return null;
+    ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.LETDECLS);
+    for(int i = 0; i < ctx.getChildCount(); i++) {
+      b.addChild(ctx.getChild(i).accept(this));
+    } return b.build();
   }
 
   @Override
   public ASTNode visitLetExpr(@NotNull PLp1Parser.LetExprContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.LET)
+                  .addChild(ctx.getChild(2).accept(this))
+                  .addChild(ctx.getChild(5).accept(this))
+                  .build();
   }
 
   @Override
