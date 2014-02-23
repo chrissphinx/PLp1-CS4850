@@ -112,8 +112,7 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CONSTS);
     for(int i = 1; i < ctx.getChildCount(); i += 2) {
       b.addChild(ctx.getChild(i).accept(this));
-    }
-    return b.build();
+    } return b.build();
   }
 
   @Override

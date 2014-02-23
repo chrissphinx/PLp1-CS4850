@@ -1,5 +1,7 @@
 package ast;
 
+import java.util.List;
+
 public class SourceVisitor implements Visitor<String>
 {
 
@@ -58,11 +60,14 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ConstListNode n) {
-    String l = "[ ";
-    for(int i = 0; i < n.children.size() - 1; i++) {
-      l += n.getChild(i).accept(this) + ", ";
-    } l += n.getChild(n.children.size() - 1).accept(this) + " ]";
-    return l;
+    List<ASTNode> e = n.getExpressions();
+    StringBuilder s = new StringBuilder("[ ");
+
+    for (ASTNode o : e) s.append(o.accept(this)).append(", ");
+    if (e.size() > 0) s.delete(s.length() - 2, s.length());
+    s.append(" ]");
+
+    return s.toString();
   }
 
   @Override

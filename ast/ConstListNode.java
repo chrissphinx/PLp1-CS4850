@@ -1,5 +1,7 @@
 package ast;
 
+import java.util.List;
+
 public class ConstListNode extends ListNode
 {
 
@@ -9,5 +11,9 @@ public class ConstListNode extends ListNode
   }
 
   public ConstListNode() {
+  }
+
+  public List<ASTNode> getExpressions() {
+    return children;
   }
 }
