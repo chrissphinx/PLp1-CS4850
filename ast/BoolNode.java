@@ -1,6 +1,7 @@
 package ast;
 
-public class BoolNode extends ASTNode {
+public class BoolNode extends ASTNode
+{
 
   @Override
   public Object accept(Visitor v) {
@@ -11,6 +12,6 @@ public class BoolNode extends ASTNode {
   }
 
   public boolean getBool() {
-    return Boolean.parseBoolean(label);
+    return Boolean.parseBoolean(getLabel());
   }
 }

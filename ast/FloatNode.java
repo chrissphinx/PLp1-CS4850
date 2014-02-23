@@ -1,16 +1,17 @@
 package ast;
 
-public class FloatNode extends ASTNode {
+public class FloatNode extends ASTNode
+{
 
+  @Override
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public FloatNode() {
   }
 
   public float getFloat() {
-  return 0.0f;
+    return Float.parseFloat(getLabel());
   }
-
 }

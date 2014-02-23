@@ -1,20 +1,21 @@
 package ast;
 
-public class AssignNode extends UnaryNode {
+public class AssignNode extends UnaryNode
+{
 
+  @Override
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public AssignNode() {
   }
 
   public String getId() {
-  return null;
+    return getLabel();
   }
 
   public ASTNode getExpression() {
-  return null;
+    return getChild(0);
   }
-
 }

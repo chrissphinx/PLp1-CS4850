@@ -1,16 +1,17 @@
 package ast;
 
-public class IntNode extends ASTNode {
+public class IntNode extends ASTNode
+{
 
+  @Override
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public IntNode() {
   }
 
   public int getInt() {
-  return 0;
+    return Integer.parseInt(getLabel());
   }
-
 }

@@ -42,9 +42,20 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitExpression(@NotNull PLp1Parser.ExpressionContext ctx) {
     if (ctx.constantExp() != null) {
-      return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.BOOL)
-                    .addLabel(ctx.constantExp().getText())
-                    .build();
+      PLp1Parser.ConstantExpContext constantExp = ctx.constantExp();
+      if (constantExp.TRUE() != null || constantExp.FALSE() != null) {
+        return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.BOOL)
+                      .addLabel(constantExp.getText())
+                      .build();
+      } else if (constantExp.INTNUM() != null) {
+        return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.INT)
+                      .addLabel(constantExp.getText())
+                      .build();
+      } else if (constantExp.FLOATNUM() != null) {
+        return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.FLOAT)
+                      .addLabel(constantExp.getText())
+                      .build();
+      }
     } return null;
   }
 

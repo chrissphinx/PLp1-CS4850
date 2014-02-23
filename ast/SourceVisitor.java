@@ -78,7 +78,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(FloatNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return String.valueOf(n.getFloat());
   }
 
   @Override
@@ -108,7 +108,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(IntNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return String.valueOf(n.getInt());
   }
 
   @Override

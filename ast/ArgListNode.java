@@ -1,12 +1,13 @@
 package ast;
 
-public class ArgListNode extends ListNode {
+public class ArgListNode extends ListNode
+{
 
+	@Override
   public Object accept(Visitor v) {
-  return null;
+	  return v.visit(this);
   }
 
   public ArgListNode() {
   }
-
 }
