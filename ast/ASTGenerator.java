@@ -26,7 +26,28 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitConstantExp(@NotNull PLp1Parser.ConstantExpContext ctx) {
-    return null;
+    if (ctx.listExp() != null) {
+      return ctx.getChild(0).accept(this);
+    } else if (ctx.TRUE() != null || ctx.FALSE() != null) {
+      return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.BOOL)
+                    .addLabel(ctx.getText())
+                    .build();
+    } else if (ctx.INTNUM() != null) {
+      return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.INT)
+                    .addLabel(ctx.getText())
+                    .build();
+    } else if (ctx.FLOATNUM() != null) {
+      return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.FLOAT)
+                    .addLabel(ctx.getText())
+                    .build();
+    } else if (ctx.STRING() != null) {
+      return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.STRING)
+                    .addLabel(ctx.getText())
+                    .build();
+    } else {
+      return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.NULL)
+                    .build();
+    }
   }
 
   @Override
@@ -42,21 +63,8 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitExpression(@NotNull PLp1Parser.ExpressionContext ctx) {
     if (ctx.constantExp() != null) {
-      PLp1Parser.ConstantExpContext constantExp = ctx.constantExp();
-      if (constantExp.TRUE() != null || constantExp.FALSE() != null) {
-        return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.BOOL)
-                      .addLabel(constantExp.getText())
-                      .build();
-      } else if (constantExp.INTNUM() != null) {
-        return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.INT)
-                      .addLabel(constantExp.getText())
-                      .build();
-      } else if (constantExp.FLOATNUM() != null) {
-        return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.FLOAT)
-                      .addLabel(constantExp.getText())
-                      .build();
-      }
-    } return null;
+      return ctx.getChild(0).accept(this);
+    } else return null;
   }
 
   @Override
@@ -101,7 +109,11 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitListExp(@NotNull PLp1Parser.ListExpContext ctx) {
-    return null;
+    ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CONSTS);
+    for(int i = 1; i < ctx.getChildCount(); i += 2) {
+      b.addChild(ctx.getChild(i).accept(this));
+    }
+    return b.build();
   }
 
   @Override

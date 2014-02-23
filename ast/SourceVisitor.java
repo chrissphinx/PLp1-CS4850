@@ -58,7 +58,11 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ConstListNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    String l = "[ ";
+    for(int i = 0; i < n.children.size() - 1; i++) {
+      l += n.getChild(i).accept(this) + ", ";
+    } l += n.getChild(n.children.size() - 1).accept(this) + " ]";
+    return l;
   }
 
   @Override
@@ -173,7 +177,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(NullNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return "null";
   }
 
   @Override
@@ -193,7 +197,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(StringNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getString();
   }
 
   @Override

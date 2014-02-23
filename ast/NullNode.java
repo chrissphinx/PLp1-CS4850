@@ -1,12 +1,13 @@
 package ast;
 
-public class NullNode extends ASTNode {
+public class NullNode extends ASTNode
+{
 
+	@Override
   public Object accept(Visitor v) {
-  return null;
+	  return v.visit(this);
   }
 
   public NullNode() {
   }
-
 }
