@@ -65,7 +65,20 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   public ASTNode visitExpression(@NotNull PLp1Parser.ExpressionContext ctx) {
     if (ctx.getChildCount() == 1) {
       return ctx.getChild(0).accept(this);
-    } else return null;
+    } else {
+      if (ctx.INVOKE() != null) {
+        return null;
+      } else if (ctx.LP() != null) {
+        return ctx.getChild(1).accept(this);
+      } else {
+        if (ctx.PLUS() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.ADD)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else return null;
+      }
+    }
   }
 
   @Override

@@ -10,7 +10,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(AddNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " + " + n.getRight().accept(this);
   }
 
   @Override
@@ -30,7 +30,12 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(BodyNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    StringBuilder s = new StringBuilder();
+
+    for (ASTNode o : n.getList()) s.append(o.accept(this)).append(" ");
+    s.deleteCharAt(s.length() - 1);
+
+    return s.toString();
   }
 
   @Override
@@ -136,17 +141,27 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(LetDeclNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getId() + " " + n.getExpression().accept(this);
   }
 
   @Override
   public String visit(LetDeclsNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    if (n.getList().size() == 0) {
+      return "";
+    } else {
+      StringBuilder s = new StringBuilder("[");
+
+      for (ASTNode o : n.getList()) s.append(o.accept(this)).append("] [");
+      if (n.getList().size() > 0) s.delete(s.length() - 3, s.length());
+      s.append("]");
+
+      return s.toString();
+    }
   }
 
   @Override
   public String visit(LetNode n) {
-    return "let ( " + n.getLetDecls().accept(this) + " ) { " + n.getExpressionList().accept(this) + " }";
+    return "let (" + n.getLetDecls().accept(this) + ") { " + n.getExpressionList().accept(this) + " }";
   }
 
   @Override

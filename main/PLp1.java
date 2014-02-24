@@ -33,7 +33,7 @@ public class PLp1
 
     line = in.readLine();
     if(line == null) { System.out.print("\n"); System.exit(0); }
-    
+
     return line;
   }
 

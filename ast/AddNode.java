@@ -3,7 +3,7 @@ package ast;
 public class AddNode extends OperatorNode
 {
 
-	@Override
+  @Override
   public Object accept(Visitor v) {
     return v.visit(this);
   }
