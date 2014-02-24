@@ -1,16 +1,17 @@
 package ast;
 
-public class NotNode extends UnaryNode {
+public class NotNode extends UnaryNode
+{
 
+  @Override
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public NotNode() {
   }
 
   public ASTNode getRight() {
-  return null;
+    return getChild();
   }
-
 }

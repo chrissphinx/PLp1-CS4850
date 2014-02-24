@@ -3,9 +3,9 @@ package ast;
 public class AndNode extends OperatorNode
 {
 
-	@Override
+  @Override
   public Object accept(Visitor v) {
-	  return v.visit(this);
+    return v.visit(this);
   }
 
   public AndNode() {

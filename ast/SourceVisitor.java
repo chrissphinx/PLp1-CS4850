@@ -191,7 +191,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(NotNode n) {
-    return "~" + n.getRight().accept(this);
+    return "!" + n.getRight().accept(this);
   }
 
   @Override
