@@ -1,12 +1,13 @@
 package ast;
 
-public class DivideNode extends OperatorNode {
+public class DivideNode extends OperatorNode
+{
 
+	@Override
   public Object accept(Visitor v) {
-  return null;
+	  return v.visit(this);
   }
 
   public DivideNode() {
   }
-
 }

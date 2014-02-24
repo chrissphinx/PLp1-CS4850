@@ -1,7 +1,7 @@
 package ast;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class ASTNode
 {

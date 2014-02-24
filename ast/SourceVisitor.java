@@ -15,7 +15,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(AndNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " & " + n.getRight().accept(this);
   }
 
   @Override
@@ -81,12 +81,12 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(DivideNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " / " + n.getRight().accept(this);
   }
 
   @Override
   public String visit(EqualNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " == " + n.getRight().accept(this);
   }
 
   @Override
@@ -101,12 +101,12 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(GreaterEqualNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " >= " + n.getRight().accept(this);
   }
 
   @Override
   public String visit(GreaterNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " > " + n.getRight().accept(this);
   }
 
   @Override
@@ -131,12 +131,12 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(LessEqualNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " <= " + n.getRight().accept(this);
   }
 
   @Override
   public String visit(LessNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " < " + n.getRight().accept(this);
   }
 
   @Override
@@ -181,17 +181,17 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(MultiplyNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " * " + n.getRight().accept(this);
   }
 
   @Override
   public String visit(NotEqualNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " != " + n.getRight().accept(this);
   }
 
   @Override
   public String visit(NotNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return "~" + n.getRight().accept(this);
   }
 
   @Override
@@ -201,7 +201,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(OrNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " | " + n.getRight().accept(this);
   }
 
   @Override
@@ -225,7 +225,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(SubNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getLeft().accept(this) + " - " + n.getRight().accept(this);
   }
 
   @Override

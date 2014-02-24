@@ -1,12 +1,13 @@
 package ast;
 
-public class EqualNode extends OperatorNode {
+public class EqualNode extends OperatorNode
+{
 
+	@Override
   public Object accept(Visitor v) {
-  return null;
+	  return v.visit(this);
   }
 
   public EqualNode() {
   }
-
 }

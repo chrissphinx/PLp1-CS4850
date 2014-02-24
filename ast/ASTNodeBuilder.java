@@ -9,6 +9,7 @@ public class ASTNodeBuilder
 
   protected ASTNodeBuilder(NodeType type) {
     node = null;
+
     switch (type)
     {
       case ADD:

@@ -71,10 +71,69 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
       } else if (ctx.LP() != null) {
         return ctx.getChild(1).accept(this);
       } else {
-        if (ctx.PLUS() != null) {
+        if (ctx.MULTIPLY() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.MULT)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.DIVIDE() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.DIV)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.PLUS() != null) {
           return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.ADD)
                         .addChild(ctx.getChild(0).accept(this))
                         .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.MINUS() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.SUB)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.EQUAL() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.EQ)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.NOTEQUAL() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.NEQ)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.LESS() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.LT)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.LESSEQUAL() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.LTEQ)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.GREATER() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.GT)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.GREATEREQUAL() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.GTEQ)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.OR() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.OR)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.AND() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.AND)
+                        .addChild(ctx.getChild(0).accept(this))
+                        .addChild(ctx.getChild(2).accept(this))
+                        .build();
+        } else if (ctx.NOT() != null) {
+          return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.NOT)
+                        .addChild(ctx.getChild(1).accept(this))
                         .build();
         } else return null;
       }
