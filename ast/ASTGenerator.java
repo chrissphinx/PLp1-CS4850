@@ -253,9 +253,14 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
                     .build();
     } else {
       return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.METHODREF)
-                    .addLabel(ctx.getChild(0).getText() +
-                              ctx.getChild(1).getText() +
-                              ctx.getChild(2).getText())
+                    .addChild(factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARREF)
+                                     .addLabel(ctx.getChild(0).getText())
+                                     .build()
+                    )
+                    .addChild(factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARREF)
+                                     .addLabel(ctx.getChild(2).getText())
+                                     .build()
+                    )
                     .build();
     }
   }

@@ -65,13 +65,17 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ConstListNode n) {
-    StringBuilder s = new StringBuilder("[ ");
+    if (n.getList().get(0) == null) {
+      return "[]";
+    } else {
+      StringBuilder s = new StringBuilder("[ ");
 
-    for (ASTNode o : n.getList()) s.append(o.accept(this)).append(", ");
-    if (n.getList().size() > 0) s.delete(s.length() - 2, s.length());
-    s.append(" ]");
+      for (ASTNode o : n.getList()) s.append(o.accept(this)).append(", ");
+      if (n.getList().size() > 0) s.delete(s.length() - 2, s.length());
+      s.append(" ]");
 
-    return s.toString();
+      return s.toString();
+    }
   }
 
   @Override
@@ -171,7 +175,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(MethodRefNode n) {
-    return n.getId() + "." + n.getMethod();
+    return n.getId().accept(this) + "." + n.getMethod().accept(this);
   }
 
   @Override

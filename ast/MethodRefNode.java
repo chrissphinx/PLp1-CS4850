@@ -1,6 +1,6 @@
 package ast;
 
-public class MethodRefNode extends ASTNode
+public class MethodRefNode extends BinaryNode
 {
 
   @Override
@@ -11,11 +11,11 @@ public class MethodRefNode extends ASTNode
   public MethodRefNode() {
   }
 
-  public String getId() {
-    return getLabel().split("\\.")[0];
+  public ASTNode getId() {
+    return getFirst();
   }
 
-  public String getMethod() {
-    return getLabel().split("\\.")[1];
+  public ASTNode getMethod() {
+    return getSecond();
   }
 }
