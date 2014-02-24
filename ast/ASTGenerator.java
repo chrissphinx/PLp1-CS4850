@@ -17,7 +17,10 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitAssignment(@NotNull PLp1Parser.AssignmentContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.ASSIGN)
+                  .addLabel(ctx.getChild(0).getText())
+                  .addChild(ctx.getChild(2).accept(this))
+                  .build();
   }
 
   @Override
