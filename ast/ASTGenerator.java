@@ -178,7 +178,10 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitLambdaExpr(@NotNull PLp1Parser.LambdaExprContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.LAMBDA)
+                  .addChild(ctx.getChild(2).accept(this))
+                  .addChild(ctx.getChild(5).accept(this))
+                  .build();
   }
 
   @Override
@@ -225,7 +228,13 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitParamList(@NotNull PLp1Parser.ParamListContext ctx) {
-    return null;
+    ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.PARAMS);
+    for(int i = 0; i < ctx.getChildCount(); i += 2) {
+      b.addChild(factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARDEF)
+                        .addLabel(ctx.getChild(i).getText())
+                        .build()
+      );
+    } return b.build();
   }
 
   @Override

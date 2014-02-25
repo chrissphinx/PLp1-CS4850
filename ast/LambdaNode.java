@@ -1,20 +1,20 @@
 package ast;
 
-public class LambdaNode extends BinaryNode {
+public class LambdaNode extends BinaryNode
+{
 
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public LambdaNode() {
   }
 
   public ASTNode getParamList() {
-  return null;
+    return getFirst();
   }
 
   public ASTNode getExpressionList() {
-  return null;
+    return getSecond();
   }
-
 }
