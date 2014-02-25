@@ -1,24 +1,25 @@
 package ast;
 
-public class IfNode extends TernaryNode {
+public class IfNode extends TernaryNode
+{
 
+  @Override
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public IfNode() {
   }
 
   public ASTNode getIf() {
-  return null;
+    return getFirst();
   }
 
   public ASTNode getThen() {
-  return null;
+    return getSecond();
   }
 
   public ASTNode getElse() {
-  return null;
+    return getThird();
   }
-
 }

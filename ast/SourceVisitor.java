@@ -20,7 +20,16 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ArgListNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    if (n.getList().size() == 0) {
+      return "";
+    } else {
+      StringBuilder s = new StringBuilder();
+
+      for (ASTNode o : n.getList()) s.append(o.accept(this)).append(", ");
+      s.delete(s.length() - 2, s.length());
+
+      return s.toString();
+    }
   }
 
   @Override
@@ -45,7 +54,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(CallNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getExpression().accept(this) + " -> (" + n.getArgumentList().accept(this) + ")"; 
   }
 
   @Override
@@ -65,7 +74,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ConstListNode n) {
-    if (n.getList().get(0) == null) {
+    if (n.getList().size() == 0) {
       return "[]";
     } else {
       StringBuilder s = new StringBuilder("[ ");
@@ -115,7 +124,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(IfNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return "if " + n.getIf().accept(this) + " then " + n.getThen().accept(this) + " else " + n.getElse().accept(this) + " endif";
   }
 
   @Override

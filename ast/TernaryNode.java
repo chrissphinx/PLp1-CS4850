@@ -1,17 +1,17 @@
 package ast;
 
-public abstract class TernaryNode extends ASTNode {
+public abstract class TernaryNode extends ASTNode
+{
 
   public ASTNode getFirst() {
-  return null;
+	  return getChild(0);
   }
 
   public ASTNode getSecond() {
-  return null;
+	  return getChild(1);
   }
 
   public ASTNode getThird() {
-  return null;
+	  return getChild(2);
   }
-
 }

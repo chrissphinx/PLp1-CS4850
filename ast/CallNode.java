@@ -1,20 +1,20 @@
 package ast;
 
-public class CallNode extends BinaryNode {
+public class CallNode extends BinaryNode
+{
 
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public CallNode() {
   }
 
   public ASTNode getExpression() {
-  return null;
+    return getFirst();
   }
 
   public ASTNode getArgumentList() {
-  return null;
+    return getSecond();
   }
-
 }

@@ -12,7 +12,10 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitArgumentList(@NotNull PLp1Parser.ArgumentListContext ctx) {
-    return null;
+    ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.ARGS);
+    for(int i = 0; i < ctx.getChildCount(); i += 2) {
+      b.addChild(ctx.getChild(i).accept(this));
+    } return b.build();
   }
 
   @Override
@@ -70,7 +73,10 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
       return ctx.getChild(0).accept(this);
     } else {
       if (ctx.INVOKE() != null) {
-        return null;
+        return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CALL)
+                      .addChild(ctx.getChild(0).accept(this))
+                      .addChild(ctx.getChild(3).accept(this))
+                      .build();
       } else if (ctx.LP() != null) {
         return ctx.getChild(1).accept(this);
       } else {
@@ -158,7 +164,11 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitIfExpr(@NotNull PLp1Parser.IfExprContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.IF)
+                  .addChild(ctx.getChild(1).accept(this))
+                  .addChild(ctx.getChild(3).accept(this))
+                  .addChild(ctx.getChild(5).accept(this))
+                  .build();
   }
 
   @Override
@@ -198,7 +208,7 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitListExp(@NotNull PLp1Parser.ListExpContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CONSTS);
-    for(int i = 1; i < ctx.getChildCount(); i += 2) {
+    for(int i = 1; i < ctx.getChildCount() - 1; i += 2) {
       b.addChild(ctx.getChild(i).accept(this));
     } return b.build();
   }
