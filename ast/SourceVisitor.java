@@ -89,7 +89,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(CreateNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return "create " + n.getId();
   }
 
   @Override

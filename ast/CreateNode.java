@@ -1,16 +1,17 @@
 package ast;
 
-public class CreateNode extends ASTNode {
+public class CreateNode extends ASTNode
+{
 
+	@Override
   public Object accept(Visitor v) {
-  return null;
+	  return v.visit(this);
   }
 
   public CreateNode() {
   }
 
   public String getId() {
-  return null;
+	  return getLabel();
   }
-
 }

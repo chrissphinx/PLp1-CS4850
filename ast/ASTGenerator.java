@@ -59,7 +59,9 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitCreateExpr(@NotNull PLp1Parser.CreateExprContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CREATE)
+                  .addLabel(ctx.getChild(1).getText())
+                  .build();
   }
 
   @Override
