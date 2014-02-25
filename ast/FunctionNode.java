@@ -1,24 +1,25 @@
 package ast;
 
-public class FunctionNode extends BinaryNode {
+public class FunctionNode extends BinaryNode
+{
 
+  @Override
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public void FunctionNode() {
   }
 
   public String getId() {
-  return null;
+    return getLabel();
   }
 
   public ASTNode getParamList() {
-  return null;
+    return getFirst();
   }
 
   public ASTNode getExpressionList() {
-  return null;
+    return getSecond();
   }
-
 }

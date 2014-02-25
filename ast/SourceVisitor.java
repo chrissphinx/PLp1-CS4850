@@ -109,7 +109,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(FunctionNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return "function " + n.getId() + "(" + n.getParamList().accept(this) + ") { " + n.getExpressionList().accept(this) + " }";
   }
 
   @Override
@@ -235,7 +235,8 @@ public class SourceVisitor implements Visitor<String>
   public String visit(ProgramNode n) {
     StringBuilder s = new StringBuilder();
 
-    for (ASTNode o : n.getList()) s.append(o.accept(this));
+    for (ASTNode o : n.getList()) s.append(o.accept(this)).append("\n");
+    s.deleteCharAt(s.length() - 1);
 
     return s.toString();
   }
