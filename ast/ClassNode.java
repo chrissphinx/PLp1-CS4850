@@ -2,27 +2,27 @@ package ast;
 
 public class ClassNode extends TernaryNode {
 
+  @Override
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public ClassNode() {
   }
 
   public String getId() {
-  return null;
+    return getLabel();
   }
 
   public ASTNode getVariables() {
-  return null;
+    return getFirst();
   }
 
   public ASTNode getInit() {
-  return null;
+    return getSecond();
   }
 
   public ASTNode getMethods() {
-  return null;
+    return getThird();
   }
-
 }

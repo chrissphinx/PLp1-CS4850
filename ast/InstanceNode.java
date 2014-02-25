@@ -1,12 +1,13 @@
 package ast;
 
-public class InstanceNode extends ListNode {
+public class InstanceNode extends ListNode
+{
 
+	@Override
   public Object accept(Visitor v) {
-  return null;
+	  return v.visit(this);
   }
 
   public InstanceNode() {
   }
-
 }

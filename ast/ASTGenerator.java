@@ -28,7 +28,12 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitClassDef(@NotNull PLp1Parser.ClassDefContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CLASS)
+                  .addLabel(ctx.getChild(1).getText())
+                  .addChild(ctx.getChild(3).accept(this))
+                  .addChild(ctx.getChild(4).accept(this))
+                  .addChild(ctx.getChild(5).accept(this))
+                  .build();
   }
 
   @Override
@@ -66,7 +71,10 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitDefaultCase(@NotNull PLp1Parser.DefaultCaseContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CASE)
+                  .addChild(null)
+                  .addChild(ctx.getChild(2).accept(this))
+                  .build();
   }
 
   @Override
@@ -179,7 +187,11 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitInit(@NotNull PLp1Parser.InitContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.METHOD)
+                  .addLabel("init")
+                  .addChild(ctx.getChild(2).accept(this))
+                  .addChild(ctx.getChild(5).accept(this))
+                  .build();
   }
 
   @Override
@@ -224,12 +236,19 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitMethod(@NotNull PLp1Parser.MethodContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.METHOD)
+                  .addLabel(ctx.getChild(1).getText())
+                  .addChild(ctx.getChild(3).accept(this))
+                  .addChild(ctx.getChild(6).accept(this))
+                  .build();
   }
 
   @Override
   public ASTNode visitMethods(@NotNull PLp1Parser.MethodsContext ctx) {
-    return null;
+    ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.METHODS);
+    for(int i = 0; i < ctx.getChildCount(); i++) {
+      b.addChild(ctx.getChild(i).accept(this));
+    } return b.build();
   }
 
   @Override
@@ -253,22 +272,37 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
   @Override
   public ASTNode visitSwitchCase(@NotNull PLp1Parser.SwitchCaseContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CASE)
+                  .addChild(ctx.getChild(1).accept(this))
+                  .addChild(ctx.getChild(3).accept(this))
+                  .build();
   }
 
   @Override
   public ASTNode visitSwitchCases(@NotNull PLp1Parser.SwitchCasesContext ctx) {
-    return null;
+    ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CASES);
+    for(int i = 0; i < ctx.getChildCount(); i++) {
+      b.addChild(ctx.getChild(i).accept(this));
+    } return b.build();
   }
 
   @Override
   public ASTNode visitSwitchExpr(@NotNull PLp1Parser.SwitchExprContext ctx) {
-    return null;
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.SWITCH)
+                  .addChild(ctx.getChild(2).accept(this))
+                  .addChild(ctx.getChild(3).accept(this))
+                  .build();
   }
 
   @Override
   public ASTNode visitVariables(@NotNull PLp1Parser.VariablesContext ctx) {
-    return null;
+    ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.INSTANCE);
+    for(int i = 0; i < ctx.getChildCount(); i++) {
+      b.addChild(factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARDEF)
+                        .addLabel(ctx.getChild(i).getText())
+                        .build()
+      );
+    } return b.build();
   }
 
   @Override

@@ -1,20 +1,21 @@
 package ast;
 
-public class CaseNode extends BinaryNode {
+public class CaseNode extends BinaryNode
+{
 
+  @Override
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public CaseNode() {
   }
 
   public ASTNode getCondition() {
-  return null;
+    return getFirst();
   }
 
   public ASTNode getExpressionList() {
-  return null;
+    return getSecond();
   }
-
 }

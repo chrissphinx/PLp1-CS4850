@@ -1,24 +1,24 @@
 package ast;
 
-public class MethodNode extends BinaryNode {
+public class MethodNode extends BinaryNode
+{
 
   public Object accept(Visitor v) {
-  return null;
+    return v.visit(this);
   }
 
   public MethodNode() {
   }
 
   public String getId() {
-  return null;
+    return getLabel();
   }
 
   public ASTNode getParamList() {
-  return null;
+    return getFirst();
   }
 
   public ASTNode getExpressionList() {
-  return null;
+    return getSecond();
   }
-
 }

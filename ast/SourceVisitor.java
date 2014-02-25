@@ -59,17 +59,26 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(CaseNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    if (n.getCondition() == null) {
+      return "default: " + n.getExpressionList().accept(this);
+    } else {
+      return "case " + n.getCondition().accept(this) + ": " + n.getExpressionList().accept(this);
+    }
   }
 
   @Override
   public String visit(CasesNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    StringBuilder s = new StringBuilder();
+
+    for (ASTNode o : n.getList()) s.append(o.accept(this)).append(" ");
+    s.deleteCharAt(s.length() - 1);
+
+    return s.toString();
   }
 
   @Override
   public String visit(ClassNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return "class " + n.getId() + " { " + n.getVariables().accept(this) + " " + n.getInit().accept(this) + " " + n.getMethods().accept(this) + " }";
   }
 
   @Override
@@ -129,7 +138,12 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(InstanceNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    StringBuilder s = new StringBuilder();
+
+    for (ASTNode o : n.getList()) s.append(o.accept(this)).append(" ");
+    s.deleteCharAt(s.length() - 1);
+
+    return s.toString();
   }
 
   @Override
@@ -179,7 +193,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(MethodNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return n.getId() + "(" + n.getParamList().accept(this) + ") { " + n.getExpressionList().accept(this) + " }";
   }
 
   @Override
@@ -189,7 +203,12 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(MethodsNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    StringBuilder s = new StringBuilder("method ");
+
+    for (ASTNode o : n.getList()) s.append(o.accept(this)).append(" method ");
+    s.delete(s.length() - 8, s.length());
+
+    return s.toString();
   }
 
   @Override
@@ -253,7 +272,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(SwitchNode n) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return "switch { " + n.getCases().accept(this) + " " + n.getDefault().accept(this) + " }";
   }
 
   @Override

@@ -1,12 +1,12 @@
 package ast;
 
-public class MethodsNode extends ListNode {
+public class MethodsNode extends ListNode
+{
 
   public Object accept(Visitor v) {
-  return null;
+	  return v.visit(this);
   }
 
   public MethodsNode() {
   }
-
 }

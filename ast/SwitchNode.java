@@ -1,16 +1,21 @@
 package ast;
 
-public class SwitchNode extends UnaryNode {
+public class SwitchNode extends BinaryNode
+{
 
+	@Override
   public Object accept(Visitor v) {
-  return null;
+	  return v.visit(this);
   }
 
   public SwitchNode() {
   }
 
   public ASTNode getCases() {
-  return null;
+	  return getFirst();
   }
 
+  public ASTNode getDefault() {
+  	return getSecond();
+  }
 }
