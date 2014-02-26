@@ -48,6 +48,9 @@ public class ASTNodeBuilder
       case CREATE:
         node = new CreateNode();
         break;
+      case DEFAULT:
+        node = new DefaultNode();
+        break;
       case DIV:
         node = new DivideNode();
         break;
@@ -68,6 +71,9 @@ public class ASTNodeBuilder
         break;
       case IF:
         node = new IfNode();
+        break;
+      case INIT:
+        node = new InitNode();
         break;
       case INSTANCE:
         node = new InstanceNode();

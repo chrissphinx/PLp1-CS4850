@@ -3,6 +3,7 @@ package ast;
 public class LetDeclNode extends UnaryNode
 {
 
+  @Override
   public Object accept(Visitor v) {
     return v.visit(this);
   }
@@ -15,6 +16,6 @@ public class LetDeclNode extends UnaryNode
   }
 
   public ASTNode getExpression() {
-    return getChild(0);
+    return getChild();
   }
 }

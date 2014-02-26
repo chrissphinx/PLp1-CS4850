@@ -1,6 +1,7 @@
 package ast;
 
-public class ClassNode extends TernaryNode {
+public class ClassNode extends TernaryNode
+{
 
   @Override
   public Object accept(Visitor v) {

@@ -4,14 +4,14 @@ public abstract class TernaryNode extends ASTNode
 {
 
   public ASTNode getFirst() {
-	  return getChild(0);
+	  return children.get(0);
   }
 
   public ASTNode getSecond() {
-	  return getChild(1);
+	  return children.get(1);
   }
 
   public ASTNode getThird() {
-	  return getChild(2);
+	  return children.get(2);
   }
 }

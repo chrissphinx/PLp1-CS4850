@@ -59,11 +59,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(CaseNode n) {
-    if (n.getCondition() == null) {
-      return "default: " + n.getExpressionList().accept(this);
-    } else {
-      return "case " + n.getCondition().accept(this) + ": " + n.getExpressionList().accept(this);
-    }
+    return "case " + n.getCondition().accept(this) + ": " + n.getExpressionList().accept(this);
   }
 
   @Override
@@ -102,6 +98,11 @@ public class SourceVisitor implements Visitor<String>
   }
 
   @Override
+  public String visit(DefaultNode n) {
+    return "default: " + n.getChild().accept(this);
+  }
+
+  @Override
   public String visit(DivideNode n) {
     return n.getLeft().accept(this) + " / " + n.getRight().accept(this);
   }
@@ -134,6 +135,11 @@ public class SourceVisitor implements Visitor<String>
   @Override
   public String visit(IfNode n) {
     return "if " + n.getIf().accept(this) + " then " + n.getThen().accept(this) + " else " + n.getElse().accept(this) + " endif";
+  }
+
+  @Override
+  public String visit(InitNode n) {
+    return "init(" + n.getParamList().accept(this) + ") { " + n.getExpressionList().accept(this) + " }";
   }
 
   @Override

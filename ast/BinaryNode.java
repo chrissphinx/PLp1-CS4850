@@ -4,10 +4,10 @@ public abstract class BinaryNode extends ASTNode
 {
 
   public ASTNode getFirst() {
-    return getChild(0);
+    return children.get(0);
   }
 
   public ASTNode getSecond() {
-    return getChild(1);
+    return children.get(1);
   }
 }

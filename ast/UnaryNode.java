@@ -4,6 +4,6 @@ public abstract class UnaryNode extends ASTNode
 {
 
   public ASTNode getChild() {
-    return getChild(0);
+    return children.get(0);
   }
 }

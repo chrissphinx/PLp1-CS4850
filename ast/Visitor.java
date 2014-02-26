@@ -15,6 +15,7 @@ public interface Visitor<T>
   public T visit(ClassNode n);
   public T visit(ConstListNode n);
   public T visit(CreateNode n);
+  public T visit(DefaultNode n);
   public T visit(DivideNode n);
   public T visit(EqualNode n);
   public T visit(FloatNode n);
@@ -22,6 +23,7 @@ public interface Visitor<T>
   public T visit(GreaterEqualNode n);
   public T visit(GreaterNode n);
   public T visit(IfNode n);
+  public T visit(InitNode n);
   public T visit(InstanceNode n);
   public T visit(IntNode n);
   public T visit(LambdaNode n);

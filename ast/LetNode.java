@@ -3,6 +3,7 @@ package ast;
 public class LetNode extends BinaryNode
 {
 
+  @Override
   public Object accept(Visitor v) {
     return v.visit(this);
   }
@@ -11,10 +12,10 @@ public class LetNode extends BinaryNode
   }
 
   public ASTNode getLetDecls() {
-    return getChild(0);
+    return getFirst();
   }
 
   public ASTNode getExpressionList() {
-    return getChild(1);
+    return getSecond();
   }
 }

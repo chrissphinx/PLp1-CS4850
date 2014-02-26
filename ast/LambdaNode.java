@@ -3,6 +3,7 @@ package ast;
 public class LambdaNode extends BinaryNode
 {
 
+  @Override
   public Object accept(Visitor v) {
     return v.visit(this);
   }

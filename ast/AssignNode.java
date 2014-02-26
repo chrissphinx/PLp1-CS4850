@@ -16,6 +16,6 @@ public class AssignNode extends UnaryNode
   }
 
   public ASTNode getExpression() {
-    return getChild(0);
+    return getChild();
   }
 }
