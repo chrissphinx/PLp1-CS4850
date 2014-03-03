@@ -1,7 +1,9 @@
 package ast;
 
+import java.util.Iterator;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import org.antlr.v4.runtime.tree.ParseTree;
 import parser.PLp1Parser;
 import parser.PLp1Visitor;
 
@@ -13,9 +15,19 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitArgumentList(@NotNull PLp1Parser.ArgumentListContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.ARGS);
-    for(int i = 0; i < ctx.getChildCount(); i += 2) {
-      b.addChild(ctx.getChild(i).accept(this));
-    } return b.build();
+    Iterator<ParseTree> i;
+    
+    if (!ctx.expression().isEmpty()) {
+      i = ctx.children.iterator();
+
+      b.addChild(i.next().accept(this));
+      while(i.hasNext()) {
+        i.next();
+        b.addChild(i.next().accept(this));
+      }
+    }
+
+    return b.build();
   }
 
   @Override
@@ -161,9 +173,17 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitExpressionList(@NotNull PLp1Parser.ExpressionListContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.BODY);
-    for(int i = 0; i < ctx.getChildCount(); i++) {
-      b.addChild(ctx.getChild(i).accept(this));
-    } return b.build();
+    Iterator<ParseTree> i;
+    
+    if (!ctx.expression().isEmpty()) {
+      i = ctx.children.iterator();
+
+      while(i.hasNext()) {
+        b.addChild(i.next().accept(this));
+      }
+    }
+
+    return b.build();
   }
 
   @Override
@@ -211,9 +231,17 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitLetDecls(@NotNull PLp1Parser.LetDeclsContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.LETDECLS);
-    for(int i = 0; i < ctx.getChildCount(); i++) {
-      b.addChild(ctx.getChild(i).accept(this));
-    } return b.build();
+    Iterator<ParseTree> i;
+    
+    if (!ctx.letDecl().isEmpty()) {
+      i = ctx.children.iterator();
+
+      while(i.hasNext()) {
+        b.addChild(i.next().accept(this));
+      }
+    }
+
+    return b.build();
   }
 
   @Override
@@ -227,9 +255,19 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitListExp(@NotNull PLp1Parser.ListExpContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CONSTS);
-    for(int i = 1; i < ctx.getChildCount() - 1; i += 2) {
-      b.addChild(ctx.getChild(i).accept(this));
-    } return b.build();
+    Iterator<ParseTree> i;
+    
+    if (!ctx.constantExp().isEmpty()) {
+      i = ctx.children.iterator();
+
+      i.next();
+      while(i.hasNext()) {
+        b.addChild(i.next().accept(this));
+        i.next();
+      }
+    }
+
+    return b.build();
   }
 
   @Override
@@ -244,28 +282,53 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitMethods(@NotNull PLp1Parser.MethodsContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.METHODS);
-    for(int i = 0; i < ctx.getChildCount(); i++) {
-      b.addChild(ctx.getChild(i).accept(this));
-    } return b.build();
+    Iterator<ParseTree> i;
+    
+    if (!ctx.method().isEmpty()) {
+      i = ctx.children.iterator();
+
+      while(i.hasNext()) {
+        b.addChild(i.next().accept(this));
+      }
+    }
+
+    return b.build();
   }
 
   @Override
   public ASTNode visitParamList(@NotNull PLp1Parser.ParamListContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.PARAMS);
-    for(int i = 0; i < ctx.getChildCount(); i += 2) {
+    Iterator<ParseTree> i;
+    
+    if (!ctx.ID().isEmpty()) {
+      i = ctx.children.iterator();
+
       b.addChild(factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARDEF)
-                        .addLabel(ctx.getChild(i).getText())
+                        .addLabel(i.next().getText())
                         .build()
       );
-    } return b.build();
+      while(i.hasNext()) {
+        i.next();
+        b.addChild(factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARDEF)
+                          .addLabel(i.next().getText())
+                          .build()
+        );
+      }
+    }
+
+    return b.build();
   }
 
   @Override
   public ASTNode visitProgram(@NotNull PLp1Parser.ProgramContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.PROGRAM);
-    for(int i = 0; i < ctx.getChildCount(); i++) {
-      b.addChild(ctx.getChild(i).accept(this));
-    } return b.build();
+    Iterator<ParseTree> i = ctx.children.iterator();
+
+    while(i.hasNext()) {
+      b.addChild(i.next().accept(this));
+    }
+
+    return b.build();
   }
 
   @Override
@@ -279,9 +342,17 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitSwitchCases(@NotNull PLp1Parser.SwitchCasesContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.CASES);
-    for(int i = 0; i < ctx.getChildCount(); i++) {
-      b.addChild(ctx.getChild(i).accept(this));
-    } return b.build();
+    Iterator<ParseTree> i;
+    
+    if (!ctx.switchCase().isEmpty()) {
+      i = ctx.children.iterator();
+
+      while(i.hasNext()) {
+        b.addChild(i.next().accept(this));
+      }
+    }
+
+    return b.build();
   }
 
   @Override
@@ -295,12 +366,20 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
   @Override
   public ASTNode visitVariables(@NotNull PLp1Parser.VariablesContext ctx) {
     ASTNodeBuilder b = factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.INSTANCE);
-    for(int i = 0; i < ctx.getChildCount(); i++) {
-      b.addChild(factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARDEF)
-                        .addLabel(ctx.getChild(i).getText())
-                        .build()
-      );
-    } return b.build();
+    Iterator<ParseTree> i;
+    
+    if (!ctx.ID().isEmpty()) {
+      i = ctx.children.iterator();
+
+      while(i.hasNext()) {
+        b.addChild(factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.VARDEF)
+                          .addLabel(i.next().getText())
+                          .build()
+        );
+      }
+    }
+
+    return b.build();
   }
 
   @Override
