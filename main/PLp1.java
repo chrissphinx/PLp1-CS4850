@@ -1,16 +1,19 @@
 package main;
 
-import ast.ASTGenerator;
-import ast.ASTNode;
-import ast.SourceVisitor;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import ast.ASTGenerator;
+import ast.ASTNode;
+import ast.EvalVisitor;
+import ast.SourceVisitor;
 import parser.PLp1Lexer;
 import parser.PLp1Parser;
 
@@ -46,10 +49,12 @@ public class PLp1
     ASTNode ast = (ASTNode) tree.accept(new ASTGenerator());
 
     System.out.println(ast.accept(new SourceVisitor()));
+    System.out.print("= ");
+    System.out.println(ast.accept(new EvalVisitor()));
   } 
 
   private static void repl() {
-    System.out.print( "====> ");
+    System.out.print( "> ");
 
     try {
       processCode(new ANTLRInputStream(getUserInput()));
