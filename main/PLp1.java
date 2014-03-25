@@ -12,8 +12,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import ast.ASTGenerator;
 import ast.ASTNode;
-import ast.EvalVisitor;
-import ast.SourceVisitor;
+import errors.PLp1Error;
+import visitor.EvalVisitor;
+import visitor.SourceVisitor;
 import parser.PLp1Lexer;
 import parser.PLp1Parser;
 
@@ -48,9 +49,17 @@ public class PLp1
 
     ASTNode ast = (ASTNode) tree.accept(new ASTGenerator());
 
-    System.out.println(ast.accept(new SourceVisitor()));
-    System.out.print("= ");
-    System.out.println(ast.accept(new EvalVisitor()));
+    try {
+      System.out.println(ast.accept(new SourceVisitor()));
+    } catch (PLp1Error e) {
+      System.out.println(e.getMessage());
+    }
+
+    try {
+      System.out.println("= " + ast.accept(new EvalVisitor()));
+    } catch (PLp1Error e) {
+      System.out.println("ERROR: " + e.getMessage());
+    }
   } 
 
   private static void repl() {

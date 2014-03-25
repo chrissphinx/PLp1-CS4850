@@ -1,7 +1,9 @@
 package ast;
 
+import visitor.Visitor;
 import java.util.LinkedList;
 import java.util.List;
+import errors.PLp1Error;
 
 public abstract class ASTNode
 {
@@ -29,5 +31,5 @@ public abstract class ASTNode
     return label;
   }
 
-  public abstract Object accept(Visitor v);
+  public abstract Object accept(Visitor v) throws PLp1Error;
 }
