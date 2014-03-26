@@ -393,7 +393,6 @@ public class EvalVisitor implements Visitor<Value>
     } catch (ClassCastException e) {}
 
     throw new PLp1TypeError("Invalid Types for Subtraction");
-
   }
 
   @Override
