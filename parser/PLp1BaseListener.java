@@ -1,6 +1,6 @@
 // Generated from parser/PLp1.g4 by ANTLR 4.1
 
-package parser;
+  package parser;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -325,6 +325,32 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitMethod(@NotNull PLp1Parser.MethodContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterRest(@NotNull PLp1Parser.RestContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitRest(@NotNull PLp1Parser.RestContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterFirst(@NotNull PLp1Parser.FirstContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitFirst(@NotNull PLp1Parser.FirstContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

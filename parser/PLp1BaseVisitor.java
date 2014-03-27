@@ -1,6 +1,6 @@
 // Generated from parser/PLp1.g4 by ANTLR 4.1
 
-package parser;
+  package parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
@@ -205,6 +205,22 @@ public class PLp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements P
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitMethod(@NotNull PLp1Parser.MethodContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitRest(@NotNull PLp1Parser.RestContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitFirst(@NotNull PLp1Parser.FirstContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

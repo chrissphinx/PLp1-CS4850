@@ -185,6 +185,14 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
 
     return b.build();
   }
+  
+  @Override
+  public ASTNode visitFirst(PLp1Parser.FirstContext ctx) {
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.FIRST)
+                  .addLabel(ctx.getChild(0).getText())
+                  .addChild(ctx.getChild(3).accept(this))
+                  .build();
+  }
 
   @Override
   public ASTNode visitFunctionDef(@NotNull PLp1Parser.FunctionDefContext ctx) {
@@ -329,6 +337,14 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
     }
 
     return b.build();
+  }
+
+  @Override
+  public ASTNode visitRest(PLp1Parser.RestContext ctx) {
+    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.REST)
+                  .addLabel(ctx.getChild(0).getText())
+                  .addChild(ctx.getChild(3).accept(this))
+                  .build();
   }
 
   @Override

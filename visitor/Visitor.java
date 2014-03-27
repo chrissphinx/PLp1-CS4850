@@ -21,6 +21,7 @@ public interface Visitor<T>
   public T visit(DefaultNode n) throws PLp1Error;
   public T visit(DivideNode n) throws PLp1Error;
   public T visit(EqualNode n) throws PLp1Error;
+  public T visit(FirstNode n) throws PLp1Error;
   public T visit(FloatNode n) throws PLp1Error;
   public T visit(FunctionNode n) throws PLp1Error;
   public T visit(GreaterEqualNode n) throws PLp1Error;
@@ -45,6 +46,7 @@ public interface Visitor<T>
   public T visit(OrNode n) throws PLp1Error;
   public T visit(ParamsNode n) throws PLp1Error;
   public T visit(ProgramNode n) throws PLp1Error;
+  public T visit(RestNode n) throws PLp1Error;
   public T visit(StringNode n) throws PLp1Error;
   public T visit(SubNode n) throws PLp1Error;
   public T visit(SwitchNode n) throws PLp1Error;

@@ -21,7 +21,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ArgListNode n) throws PLp1Error {
-    if (n.getList().size() == 0) {
+    if (n.getList().isEmpty()) {
       return "";
     } else {
       StringBuilder s = new StringBuilder();
@@ -80,14 +80,19 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ConstListNode n) throws PLp1Error {
-    if (n.getList().size() == 0) {
+    if (n.getList().isEmpty()) {
       return "[]";
     } else {
       StringBuilder s = new StringBuilder("[ ");
 
-      for (ASTNode o : n.getList()) s.append(o.accept(this)).append(", ");
-      if (n.getList().size() > 0) s.delete(s.length() - 2, s.length());
-      s.append(" ]");
+      for (ASTNode o : n.getList()) {
+        int l = s.length();
+        s.append(o.accept(this)).append(", ");
+        if (s.charAt(l) == '[' && s.charAt(l - 2) != ',') s.deleteCharAt(l - 1);
+      }
+      s.delete(s.length() - 2, s.length());
+      if (s.charAt(s.length() - 1) == ']') s.append("]");
+      else s.append(" ]");
 
       return s.toString();
     }
@@ -111,6 +116,11 @@ public class SourceVisitor implements Visitor<String>
   @Override
   public String visit(EqualNode n) throws PLp1Error {
     return n.getLeft().accept(this) + " == " + n.getRight().accept(this);
+  }
+  
+  @Override
+  public String visit(FirstNode n) throws PLp1Error {
+    return n.getLabel() + " -> (" + n.getArgumentList().accept(this) + ")";
   }
 
   @Override
@@ -180,14 +190,13 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(LetDeclsNode n) throws PLp1Error {
-    if (n.getList().size() == 0) {
+    if (n.getList().isEmpty()) {
       return "";
     } else {
       StringBuilder s = new StringBuilder("[");
 
       for (ASTNode o : n.getList()) s.append(o.accept(this)).append("] [");
-      if (n.getList().size() > 0) s.delete(s.length() - 3, s.length());
-      s.append("]");
+      s.delete(s.length() - 3, s.length()).append("]");
 
       return s.toString();
     }
@@ -245,7 +254,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(ParamsNode n) throws PLp1Error {
-    if (n.getList().size() == 0) {
+    if (n.getList().isEmpty()) {
       return "";
     } else {
       StringBuilder s = new StringBuilder();
@@ -265,6 +274,11 @@ public class SourceVisitor implements Visitor<String>
     s.deleteCharAt(s.length() - 1);
 
     return s.toString();
+  }
+
+  @Override
+  public String visit(RestNode n) throws PLp1Error {
+    return n.getLabel() + " -> (" + n.getArgumentList().accept(this) + ")";
   }
 
   @Override

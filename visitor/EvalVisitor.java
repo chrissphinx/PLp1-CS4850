@@ -1,5 +1,8 @@
 package visitor;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import ast.*;
 import errors.*;
 import types.*;
@@ -45,7 +48,15 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(ArgListNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    if (n.getList().isEmpty()) {
+      return new ValueList();
+    } else {
+      LinkedList<Value> l = new LinkedList<>();
+
+      for (ASTNode o : n.getList()) l.add((Value) o.accept(this));
+
+      return new ValueList(l);
+    }
   }
 
   @Override
@@ -85,7 +96,15 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(ConstListNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    if (n.getList().isEmpty()) {
+      return new ValueList();
+    } else {
+      LinkedList<Value> l = new LinkedList<>();
+
+      for (ASTNode o : n.getList()) l.add((Value) o.accept(this));
+
+      return new ValueList(l);
+    }
   }
 
   @Override
@@ -138,6 +157,23 @@ public class EvalVisitor implements Visitor<Value>
     } catch (ClassCastException e) {}
 
     throw new PLp1TypeError("Invalid Types for Equal To");
+  }
+  
+  @Override
+  public Value visit(FirstNode n) throws PLp1Error {
+    List<Value> l = new LinkedList<>();
+
+    try {
+      l = (List) ((ValueList) ((ValueList) n.getArgumentList().accept(this)).get().get(0)).get();
+    } catch (ClassCastException e) {
+      throw new PLp1TypeError("Invalid Type for `first -> ()`");
+    }
+
+    try {
+      return (Value) l.get(0);
+    } catch (IndexOutOfBoundsException e) {
+      throw new PLp1BoundsError("Empty List Given to `first -> ()`");
+    }
   }
 
   @Override
@@ -367,6 +403,22 @@ public class EvalVisitor implements Visitor<Value>
   @Override
   public Value visit(ProgramNode n) throws PLp1Error {
     return (Value) n.getList().get(0).accept(this);
+  }
+
+  public Value visit(RestNode n) throws PLp1Error {
+    List<Value> l = new LinkedList<>();
+
+    try {
+      l = (List) ((ValueList) ((ValueList) n.getArgumentList().accept(this)).get().get(0)).get();
+    } catch (ClassCastException e) {
+      throw new PLp1TypeError("Invalid Type for `rest -> ()`");
+    }
+
+    try {
+      l.remove(0); return new ValueList(l);
+    } catch (IndexOutOfBoundsException e) {
+      throw new PLp1BoundsError("Empty List Given to `rest -> ()`");
+    }
   }
 
   @Override

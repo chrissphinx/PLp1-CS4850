@@ -1,6 +1,6 @@
 // Generated from parser/PLp1.g4 by ANTLR 4.1
 
-package parser;
+  package parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -273,6 +273,28 @@ public interface PLp1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMethod(@NotNull PLp1Parser.MethodContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#rest}.
+	 * @param ctx the parse tree
+	 */
+	void enterRest(@NotNull PLp1Parser.RestContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#rest}.
+	 * @param ctx the parse tree
+	 */
+	void exitRest(@NotNull PLp1Parser.RestContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#first}.
+	 * @param ctx the parse tree
+	 */
+	void enterFirst(@NotNull PLp1Parser.FirstContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#first}.
+	 * @param ctx the parse tree
+	 */
+	void exitFirst(@NotNull PLp1Parser.FirstContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#switchCases}.

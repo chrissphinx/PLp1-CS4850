@@ -57,6 +57,9 @@ public class ASTNodeBuilder
       case EQ:
         node = new EqualNode();
         break;
+      case FIRST:
+        node = new FirstNode();
+        break;
       case FLOAT:
         node = new FloatNode();
         break;
@@ -128,6 +131,9 @@ public class ASTNodeBuilder
         break;
       case PROGRAM:
         node = new ProgramNode();
+        break;
+      case REST:
+        node = new RestNode();
         break;
       case STRING:
         node = new StringNode();

@@ -1,6 +1,6 @@
 // Generated from parser/PLp1.g4 by ANTLR 4.1
 
-package parser;
+  package parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -180,6 +180,20 @@ public interface PLp1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMethod(@NotNull PLp1Parser.MethodContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#rest}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRest(@NotNull PLp1Parser.RestContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#first}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFirst(@NotNull PLp1Parser.FirstContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#switchCases}.
