@@ -98,11 +98,32 @@ public interface PLp1Visitor<T> extends ParseTreeVisitor<T> {
 	T visitLetExpr(@NotNull PLp1Parser.LetExprContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#numberp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberp(@NotNull PLp1Parser.NumberpContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#length}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLength(@NotNull PLp1Parser.LengthContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#createExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCreateExpr(@NotNull PLp1Parser.CreateExprContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#listp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListp(@NotNull PLp1Parser.ListpContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#listExp}.
@@ -119,6 +140,13 @@ public interface PLp1Visitor<T> extends ParseTreeVisitor<T> {
 	T visitSwitchExpr(@NotNull PLp1Parser.SwitchExprContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#equalp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualp(@NotNull PLp1Parser.EqualpContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#letDecls}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -133,11 +161,32 @@ public interface PLp1Visitor<T> extends ParseTreeVisitor<T> {
 	T visitInit(@NotNull PLp1Parser.InitContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitList(@NotNull PLp1Parser.ListContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#pairp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPairp(@NotNull PLp1Parser.PairpContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#argumentList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitArgumentList(@NotNull PLp1Parser.ArgumentListContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#exit}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExit(@NotNull PLp1Parser.ExitContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#variables}.
@@ -168,6 +217,13 @@ public interface PLp1Visitor<T> extends ParseTreeVisitor<T> {
 	T visitProgram(@NotNull PLp1Parser.ProgramContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#emptyp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEmptyp(@NotNull PLp1Parser.EmptypContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#constantExp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -187,6 +243,13 @@ public interface PLp1Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRest(@NotNull PLp1Parser.RestContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link PLp1Parser#insert}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInsert(@NotNull PLp1Parser.InsertContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#first}.

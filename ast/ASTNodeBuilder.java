@@ -54,8 +54,17 @@ public class ASTNodeBuilder
       case DIV:
         node = new DivideNode();
         break;
+      case EMPTYP:
+        node = new EmptyPNode();
+        break;
       case EQ:
         node = new EqualNode();
+        break;
+      case EQUALP:
+        node = new EqualPNode();
+        break;
+      case EXIT:
+        node = new ExitNode();
         break;
       case FIRST:
         node = new FirstNode();
@@ -66,17 +75,20 @@ public class ASTNodeBuilder
       case FUNC:
         node = new FunctionNode();
         break;
-      case GTEQ:
-        node = new GreaterEqualNode();
-        break;
       case GT:
         node = new GreaterNode();
+        break;
+      case GTEQ:
+        node = new GreaterEqualNode();
         break;
       case IF:
         node = new IfNode();
         break;
       case INIT:
         node = new InitNode();
+        break;
+      case INSERT:
+        node = new InsertNode();
         break;
       case INSTANCE:
         node = new InstanceNode();
@@ -87,11 +99,8 @@ public class ASTNodeBuilder
       case LAMBDA:
         node = new LambdaNode();
         break;
-      case LTEQ:
-        node = new LessEqualNode();
-        break;
-      case LT:
-        node = new LessNode();
+      case LENGTH:
+        node = new LengthNode();
         break;
       case LETDECL:
         node = new LetDeclNode();
@@ -101,6 +110,18 @@ public class ASTNodeBuilder
         break;
       case LET:
         node = new LetNode();
+        break;
+      case LIST:
+        node = new MakeListNode();
+        break;
+      case LISTP:
+        node = new ListPNode();
+        break;
+      case LT:
+        node = new LessNode();
+        break;
+      case LTEQ:
+        node = new LessEqualNode();
         break;
       case METHOD:
         node = new MethodNode();
@@ -123,8 +144,14 @@ public class ASTNodeBuilder
       case NULL:
         node = new NullNode();
         break;
+      case NUMBERP:
+        node = new NumberPNode();
+        break;
       case OR:
         node = new OrNode();
+        break;
+      case PAIRP:
+        node = new PairPNode();
         break;
       case PARAMS:
         node = new ParamsNode();

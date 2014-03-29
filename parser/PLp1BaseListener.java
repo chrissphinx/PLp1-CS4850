@@ -175,6 +175,32 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterNumberp(@NotNull PLp1Parser.NumberpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitNumberp(@NotNull PLp1Parser.NumberpContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterLength(@NotNull PLp1Parser.LengthContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitLength(@NotNull PLp1Parser.LengthContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterCreateExpr(@NotNull PLp1Parser.CreateExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -182,6 +208,19 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitCreateExpr(@NotNull PLp1Parser.CreateExprContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterListp(@NotNull PLp1Parser.ListpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitListp(@NotNull PLp1Parser.ListpContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -214,6 +253,19 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterEqualp(@NotNull PLp1Parser.EqualpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitEqualp(@NotNull PLp1Parser.EqualpContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterLetDecls(@NotNull PLp1Parser.LetDeclsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -240,6 +292,32 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterList(@NotNull PLp1Parser.ListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitList(@NotNull PLp1Parser.ListContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterPairp(@NotNull PLp1Parser.PairpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitPairp(@NotNull PLp1Parser.PairpContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterArgumentList(@NotNull PLp1Parser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -247,6 +325,19 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitArgumentList(@NotNull PLp1Parser.ArgumentListContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterExit(@NotNull PLp1Parser.ExitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitExit(@NotNull PLp1Parser.ExitContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -305,6 +396,19 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterEmptyp(@NotNull PLp1Parser.EmptypContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitEmptyp(@NotNull PLp1Parser.EmptypContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterConstantExp(@NotNull PLp1Parser.ConstantExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -338,6 +442,19 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * The default implementation does nothing.
 	 */
 	@Override public void exitRest(@NotNull PLp1Parser.RestContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterInsert(@NotNull PLp1Parser.InsertContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitInsert(@NotNull PLp1Parser.InsertContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

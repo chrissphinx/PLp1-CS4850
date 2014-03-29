@@ -143,6 +143,28 @@ public interface PLp1Listener extends ParseTreeListener {
 	void exitLetExpr(@NotNull PLp1Parser.LetExprContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#numberp}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberp(@NotNull PLp1Parser.NumberpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#numberp}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberp(@NotNull PLp1Parser.NumberpContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#length}.
+	 * @param ctx the parse tree
+	 */
+	void enterLength(@NotNull PLp1Parser.LengthContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#length}.
+	 * @param ctx the parse tree
+	 */
+	void exitLength(@NotNull PLp1Parser.LengthContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#createExpr}.
 	 * @param ctx the parse tree
 	 */
@@ -152,6 +174,17 @@ public interface PLp1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCreateExpr(@NotNull PLp1Parser.CreateExprContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#listp}.
+	 * @param ctx the parse tree
+	 */
+	void enterListp(@NotNull PLp1Parser.ListpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#listp}.
+	 * @param ctx the parse tree
+	 */
+	void exitListp(@NotNull PLp1Parser.ListpContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#listExp}.
@@ -176,6 +209,17 @@ public interface PLp1Listener extends ParseTreeListener {
 	void exitSwitchExpr(@NotNull PLp1Parser.SwitchExprContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#equalp}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualp(@NotNull PLp1Parser.EqualpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#equalp}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualp(@NotNull PLp1Parser.EqualpContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#letDecls}.
 	 * @param ctx the parse tree
 	 */
@@ -198,6 +242,28 @@ public interface PLp1Listener extends ParseTreeListener {
 	void exitInit(@NotNull PLp1Parser.InitContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#list}.
+	 * @param ctx the parse tree
+	 */
+	void enterList(@NotNull PLp1Parser.ListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#list}.
+	 * @param ctx the parse tree
+	 */
+	void exitList(@NotNull PLp1Parser.ListContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#pairp}.
+	 * @param ctx the parse tree
+	 */
+	void enterPairp(@NotNull PLp1Parser.PairpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#pairp}.
+	 * @param ctx the parse tree
+	 */
+	void exitPairp(@NotNull PLp1Parser.PairpContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#argumentList}.
 	 * @param ctx the parse tree
 	 */
@@ -207,6 +273,17 @@ public interface PLp1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArgumentList(@NotNull PLp1Parser.ArgumentListContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#exit}.
+	 * @param ctx the parse tree
+	 */
+	void enterExit(@NotNull PLp1Parser.ExitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#exit}.
+	 * @param ctx the parse tree
+	 */
+	void exitExit(@NotNull PLp1Parser.ExitContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#variables}.
@@ -253,6 +330,17 @@ public interface PLp1Listener extends ParseTreeListener {
 	void exitProgram(@NotNull PLp1Parser.ProgramContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#emptyp}.
+	 * @param ctx the parse tree
+	 */
+	void enterEmptyp(@NotNull PLp1Parser.EmptypContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#emptyp}.
+	 * @param ctx the parse tree
+	 */
+	void exitEmptyp(@NotNull PLp1Parser.EmptypContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#constantExp}.
 	 * @param ctx the parse tree
 	 */
@@ -284,6 +372,17 @@ public interface PLp1Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRest(@NotNull PLp1Parser.RestContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link PLp1Parser#insert}.
+	 * @param ctx the parse tree
+	 */
+	void enterInsert(@NotNull PLp1Parser.InsertContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLp1Parser#insert}.
+	 * @param ctx the parse tree
+	 */
+	void exitInsert(@NotNull PLp1Parser.InsertContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#first}.

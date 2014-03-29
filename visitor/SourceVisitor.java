@@ -114,13 +114,28 @@ public class SourceVisitor implements Visitor<String>
   }
 
   @Override
+  public String visit(EmptyPNode n) throws PLp1Error {
+    return builtin(n);
+  }
+
+  @Override
   public String visit(EqualNode n) throws PLp1Error {
     return n.getLeft().accept(this) + " == " + n.getRight().accept(this);
+  }
+
+  @Override
+  public String visit(EqualPNode n) throws PLp1Error {
+    return builtin(n);
+  }
+
+  @Override
+  public String visit(ExitNode n) throws PLp1Error {
+    return builtin(n);
   }
   
   @Override
   public String visit(FirstNode n) throws PLp1Error {
-    return n.getLabel() + " -> (" + n.getArgumentList().accept(this) + ")";
+    return builtin(n);
   }
 
   @Override
@@ -154,6 +169,11 @@ public class SourceVisitor implements Visitor<String>
   }
 
   @Override
+  public String visit(InsertNode n) throws PLp1Error {
+    return builtin(n);
+  }
+
+  @Override
   public String visit(InstanceNode n) throws PLp1Error {
     StringBuilder s = new StringBuilder();
 
@@ -166,6 +186,11 @@ public class SourceVisitor implements Visitor<String>
   @Override
   public String visit(IntNode n) throws PLp1Error {
     return String.valueOf(n.getInt());
+  }
+
+  @Override
+  public String visit(LengthNode n) throws PLp1Error {
+    return builtin(n);
   }
 
   @Override
@@ -205,6 +230,16 @@ public class SourceVisitor implements Visitor<String>
   @Override
   public String visit(LetNode n) throws PLp1Error {
     return "let (" + n.getLetDecls().accept(this) + ") { " + n.getExpressionList().accept(this) + " }";
+  }
+
+  @Override
+  public String visit(ListPNode n) throws PLp1Error {
+    return builtin(n);
+  }
+
+  @Override
+  public String visit(MakeListNode n) throws PLp1Error {
+    return builtin(n);
   }
 
   @Override
@@ -248,8 +283,18 @@ public class SourceVisitor implements Visitor<String>
   }
 
   @Override
+  public String visit(NumberPNode n) throws PLp1Error {
+    return builtin(n);
+  }
+
+  @Override
   public String visit(OrNode n) throws PLp1Error {
     return n.getLeft().accept(this) + " | " + n.getRight().accept(this);
+  }
+
+  @Override
+  public String visit(PairPNode n) throws PLp1Error {
+    return builtin(n);
   }
 
   @Override
@@ -278,7 +323,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(RestNode n) throws PLp1Error {
-    return n.getLabel() + " -> (" + n.getArgumentList().accept(this) + ")";
+    return builtin(n);
   }
 
   @Override
@@ -304,5 +349,9 @@ public class SourceVisitor implements Visitor<String>
   @Override
   public String visit(VarRefNode n) throws PLp1Error {
     return n.getId();
+  }
+
+  private String builtin(UnaryNode n) throws PLp1Error {
+    return n.getLabel() + " -> (" + n.getArgumentList().accept(this) + ")";
   }
 }

@@ -1,5 +1,7 @@
 package types;
 
+import java.util.Objects;
+
 public class ValueInt extends Value
 {
 
@@ -9,8 +11,22 @@ public class ValueInt extends Value
     this.v = v;
   }
 
+  @Override
   public Integer get() {
     return this.v;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || !(o instanceof ValueInt)) return false;
+    return v == ((ValueInt) o).get();
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 3;
+    hash = 73 * hash + Objects.hashCode(this.v);
+    return hash;
   }
 
   @Override

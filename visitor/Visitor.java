@@ -20,7 +20,10 @@ public interface Visitor<T>
   public T visit(CreateNode n) throws PLp1Error;
   public T visit(DefaultNode n) throws PLp1Error;
   public T visit(DivideNode n) throws PLp1Error;
+  public T visit(EmptyPNode n) throws PLp1Error;
   public T visit(EqualNode n) throws PLp1Error;
+  public T visit(EqualPNode n) throws PLp1Error;
+  public T visit(ExitNode n) throws PLp1Error;
   public T visit(FirstNode n) throws PLp1Error;
   public T visit(FloatNode n) throws PLp1Error;
   public T visit(FunctionNode n) throws PLp1Error;
@@ -29,13 +32,17 @@ public interface Visitor<T>
   public T visit(IfNode n) throws PLp1Error;
   public T visit(InitNode n) throws PLp1Error;
   public T visit(InstanceNode n) throws PLp1Error;
+  public T visit(InsertNode n) throws PLp1Error;
   public T visit(IntNode n) throws PLp1Error;
   public T visit(LambdaNode n) throws PLp1Error;
+  public T visit(LengthNode n) throws PLp1Error;
   public T visit(LessEqualNode n) throws PLp1Error;
   public T visit(LessNode n) throws PLp1Error;
   public T visit(LetDeclNode n) throws PLp1Error;
   public T visit(LetDeclsNode n) throws PLp1Error;
   public T visit(LetNode n) throws PLp1Error;
+  public T visit(ListPNode n) throws PLp1Error;
+  public T visit(MakeListNode n) throws PLp1Error;
   public T visit(MethodNode n) throws PLp1Error;
   public T visit(MethodRefNode n) throws PLp1Error;
   public T visit(MethodsNode n) throws PLp1Error;
@@ -43,7 +50,9 @@ public interface Visitor<T>
   public T visit(NotEqualNode n) throws PLp1Error;
   public T visit(NotNode n) throws PLp1Error;
   public T visit(NullNode n) throws PLp1Error;
+  public T visit(NumberPNode n) throws PLp1Error;
   public T visit(OrNode n) throws PLp1Error;
+  public T visit(PairPNode n) throws PLp1Error;
   public T visit(ParamsNode n) throws PLp1Error;
   public T visit(ProgramNode n) throws PLp1Error;
   public T visit(RestNode n) throws PLp1Error;
