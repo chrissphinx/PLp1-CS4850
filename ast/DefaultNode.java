@@ -17,9 +17,4 @@ public class DefaultNode extends UnaryNode
   public ASTNode getExpressionList() {
     return getChild();
   }
-
-  @Override
-  public ASTNode getArgumentList() {
-    throw new UnsupportedOperationException("DefaultNode doesn't have an argument list");
-  }
 }

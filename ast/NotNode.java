@@ -17,9 +17,4 @@ public class NotNode extends UnaryNode
   public ASTNode getRight() {
     return getChild();
   }
-
-  @Override
-  public ASTNode getArgumentList() {
-    throw new UnsupportedOperationException("NotNode doesn't have an argument list");
-  }
 }

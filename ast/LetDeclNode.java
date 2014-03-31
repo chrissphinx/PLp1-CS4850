@@ -21,9 +21,4 @@ public class LetDeclNode extends UnaryNode
   public ASTNode getExpression() {
     return getChild();
   }
-
-  @Override
-  public ASTNode getArgumentList() {
-    throw new UnsupportedOperationException("LetDeclNode doesn't have an argument list");
-  }
 }

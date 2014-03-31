@@ -6,6 +6,10 @@ import errors.PLp1Error;
 public class SourceVisitor implements Visitor<String>
 {
 
+  private String builtin(UnaryNode n) throws PLp1Error {
+    return n.getLabel() + " -> (" + n.getChild().accept(this) + ")";
+  }
+
   public SourceVisitor() {
   }
 
@@ -349,9 +353,5 @@ public class SourceVisitor implements Visitor<String>
   @Override
   public String visit(VarRefNode n) throws PLp1Error {
     return n.getId();
-  }
-
-  private String builtin(UnaryNode n) throws PLp1Error {
-    return n.getLabel() + " -> (" + n.getArgumentList().accept(this) + ")";
   }
 }

@@ -21,9 +21,4 @@ public class AssignNode extends UnaryNode
   public ASTNode getExpression() {
     return getChild();
   }
-
-  @Override
-  public ASTNode getArgumentList() {
-    throw new UnsupportedOperationException("AssignNode doesn't have an argument list");
-  }
 }
