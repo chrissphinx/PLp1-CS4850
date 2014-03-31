@@ -66,7 +66,11 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(BodyNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    Value v = null;
+
+    for (ASTNode a : n.getList()) v = (Value) a.accept(this);
+
+    return v;
   }
 
   @Override
@@ -81,12 +85,27 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(CaseNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    ValueBool v;
+
+    try {
+      v = (ValueBool) n.getCondition().accept(this);
+    } catch (ClassCastException e) {
+    throw new PLp1TypeError("Invalid Type for `case` Condition");
+    }
+
+    if (v.get())
+      return (Value) n.getExpressionList().accept(this);
+    else throw new PLp1CaseError();
   }
 
   @Override
   public Value visit(CasesNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    for (ASTNode c : n.getList()) {
+      try {
+        return (Value) c.accept(this);
+      } catch (PLp1CaseError e) {}
+    }
+    throw new PLp1CaseError();
   }
 
   @Override
@@ -114,7 +133,7 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(DefaultNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return (Value) n.getExpressionList().accept(this);
   }
 
   @Override
@@ -278,7 +297,16 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(IfNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    ValueBool v;
+
+    try {
+      v = (ValueBool) n.getIf().accept(this);
+    } catch (ClassCastException e) {
+      throw new PLp1TypeError("Invalid Type for `if` Condition");
+    }
+
+    if (v.get()) return (Value) n.getThen().accept(this);
+    else return (Value) n.getElse().accept(this);
   }
 
   @Override
@@ -591,7 +619,11 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(SwitchNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    try {
+      return (Value) n.getCases().accept(this);
+    } catch (PLp1CaseError e) {
+      return (Value) n.getDefault().accept(this);
+    }
   }
 
   @Override
