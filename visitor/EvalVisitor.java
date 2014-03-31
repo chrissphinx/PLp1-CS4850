@@ -332,13 +332,13 @@ public class EvalVisitor implements Visitor<Value>
     try {
       v = (Value) l.get(0);
     } catch (IndexOutOfBoundsException e) {
-      throw new PLp1BoundsError("Not Enough Arguments for `insert -> ()`");
+      throw new PLp1ArgumentsError("Not Enough Arguments for `insert -> ()`");
     }
       
     try {
       l = (List) l.get(1).get();
     } catch (IndexOutOfBoundsException e) {
-      throw new PLp1BoundsError("Not Enough Arguments for `insert -> ()`");
+      throw new PLp1ArgumentsError("Not Enough Arguments for `insert -> ()`");
     } catch (ClassCastException e) {
       throw new PLp1TypeError("Invalid Type for `insert -> ()`");
     }
