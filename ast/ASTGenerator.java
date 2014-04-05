@@ -210,13 +210,13 @@ public class ASTGenerator extends AbstractParseTreeVisitor<ASTNode> implements P
     return b.build();
   }
   
-  @Override
-  public ASTNode visitFirst(@NotNull PLp1Parser.FirstContext ctx) {
-    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.FIRST)
-                  .addLabel(ctx.getChild(0).getText())
-                  .addChild(ctx.getChild(3).accept(this))
-                  .build();
-  }
+//  @Override
+//  public ASTNode visitFirst(@NotNull PLp1Parser.FirstContext ctx) {
+//    return factory.makeASTNodeBuilder(ASTNodeBuilderFactory.NodeType.FIRST)
+//                  .addLabel(ctx.getChild(0).getText())
+//                  .addChild(ctx.getChild(3).accept(this))
+//                  .build();
+//  }
 
   @Override
   public ASTNode visitFunctionDef(@NotNull PLp1Parser.FunctionDefContext ctx) {

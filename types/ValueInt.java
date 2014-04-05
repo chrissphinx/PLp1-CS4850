@@ -2,18 +2,11 @@ package types;
 
 import java.util.Objects;
 
-public class ValueInt extends Value
+public class ValueInt extends Value<Integer>
 {
-
-  private Integer v;
 
   public ValueInt(int v) {
     this.v = v;
-  }
-
-  @Override
-  public Integer get() {
-    return this.v;
   }
 
   @Override

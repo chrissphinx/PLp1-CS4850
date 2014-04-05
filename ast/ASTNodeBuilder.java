@@ -66,9 +66,9 @@ public class ASTNodeBuilder
       case EXIT:
         node = new ExitNode();
         break;
-      case FIRST:
-        node = new FirstNode();
-        break;
+//      case FIRST:
+//        node = new FirstNode();
+//        break;
       case FLOAT:
         node = new FloatNode();
         break;

@@ -133,10 +133,10 @@ public class SourceVisitor implements Visitor<String>
     return builtin(n);
   }
   
-  @Override
-  public String visit(FirstNode n) throws PLp1Error {
-    return builtin(n);
-  }
+//  @Override
+//  public String visit(FirstNode n) throws PLp1Error {
+//    return builtin(n);
+//  }
 
   @Override
   public String visit(FloatNode n) throws PLp1Error {

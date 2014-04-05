@@ -2,18 +2,11 @@ package types;
 
 import java.util.Objects;
 
-public class ValueFloat extends Value
+public class ValueFloat extends Value<Float>
 {
-
-  private Float v;
 
   public ValueFloat(float v) {
     this.v = v;
-  }
-
-  @Override
-  public Float get() {
-    return this.v;
   }
 
   @Override

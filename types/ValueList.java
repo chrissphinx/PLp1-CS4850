@@ -5,10 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class ValueList extends Value
+public class ValueList extends Value<List>
 {
-
-  private List<Value> v;
 
   public ValueList() {
     this.v = new LinkedList<>();
@@ -55,8 +53,10 @@ public class ValueList extends Value
       return "[]";
     } else {
       StringBuilder s = new StringBuilder("[ ");
+      Iterator<Value> i = v.iterator();
 
-      for (Value a : v) {
+      while (i.hasNext()) {
+        Value a = (Value) i.next();
         int l = s.length();
         s.append(a).append(", ");
         if (s.charAt(l) == '[' && s.charAt(l - 2) != ',') s.deleteCharAt(l - 1);

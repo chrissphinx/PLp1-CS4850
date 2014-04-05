@@ -252,13 +252,6 @@ public interface PLp1Visitor<T> extends ParseTreeVisitor<T> {
 	T visitInsert(@NotNull PLp1Parser.InsertContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link PLp1Parser#first}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFirst(@NotNull PLp1Parser.FirstContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link PLp1Parser#switchCases}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

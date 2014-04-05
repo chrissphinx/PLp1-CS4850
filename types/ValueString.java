@@ -2,18 +2,11 @@ package types;
 
 import java.util.Objects;
 
-public class ValueString extends Value
+public class ValueString extends Value<String>
 {
-
-  private String v;
 
   public ValueString(String s) {
     this.v = s;
-  }
-
-  @Override
-  public String get() {
-    return this.v;
   }
 
   @Override

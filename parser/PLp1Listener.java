@@ -385,17 +385,6 @@ public interface PLp1Listener extends ParseTreeListener {
 	void exitInsert(@NotNull PLp1Parser.InsertContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link PLp1Parser#first}.
-	 * @param ctx the parse tree
-	 */
-	void enterFirst(@NotNull PLp1Parser.FirstContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PLp1Parser#first}.
-	 * @param ctx the parse tree
-	 */
-	void exitFirst(@NotNull PLp1Parser.FirstContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link PLp1Parser#switchCases}.
 	 * @param ctx the parse tree
 	 */

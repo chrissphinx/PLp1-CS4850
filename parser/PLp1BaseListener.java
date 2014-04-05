@@ -461,19 +461,6 @@ public class PLp1BaseListener implements PLp1Listener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
-	@Override public void enterFirst(@NotNull PLp1Parser.FirstContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitFirst(@NotNull PLp1Parser.FirstContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
 	@Override public void enterSwitchCases(@NotNull PLp1Parser.SwitchCasesContext ctx) { }
 	/**
 	 * {@inheritDoc}

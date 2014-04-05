@@ -10,7 +10,10 @@ import types.*;
 public class EvalVisitor implements Visitor<Value>
 {
 
+  private Environment env;
+
   public EvalVisitor() {
+    env = new Environment();
   }
 
   @Override
@@ -80,7 +83,10 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(CallNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    Value v = (Value) n.getArgumentList().accept(this);
+    List<Value> a = (List) v.get();
+    return ((Builtin) n.getExpression().accept(this)).invoke(env, a);
+//    throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
@@ -232,25 +238,25 @@ public class EvalVisitor implements Visitor<Value>
     return null;
   }
   
-  @Override
-  public Value visit(FirstNode n) throws PLp1Error {
-    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `first -> ()`");
-
-    try {
-      l = (List) l.get(0).get();
-    } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `first -> ()`");
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `first -> ()`");
-    }
-
-    try {
-      return (Value) l.get(0);
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Empty List Given to `first -> ()`");
-    }
-  }
+//  @Override
+//  public Value visit(FirstNode n) throws PLp1Error {
+//    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
+//    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `first -> ()`");
+//
+//    try {
+//      l = (List) l.get(0).get();
+//    } catch (ClassCastException e) {
+//      throw new PLp1TypeError("Invalid Type for `first -> ()`");
+//    } catch (IndexOutOfBoundsException e) {
+//      throw new PLp1ArgumentsError("Not Enough Arguments for `first -> ()`");
+//    }
+//
+//    try {
+//      return (Value) l.get(0);
+//    } catch (IndexOutOfBoundsException e) {
+//      throw new PLp1ArgumentsError("Empty List Given to `first -> ()`");
+//    }
+//  }
 
   @Override
   public Value visit(FloatNode n) throws PLp1Error {
@@ -649,6 +655,9 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(VarRefNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return env.get(n.getId());
+//      return new First();
+//    } else return null;
+    // throw new UnsupportedOperationException("Not supported yet.");
   }
 }

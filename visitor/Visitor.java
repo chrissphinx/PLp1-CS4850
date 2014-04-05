@@ -24,7 +24,7 @@ public interface Visitor<T>
   public T visit(EqualNode n) throws PLp1Error;
   public T visit(EqualPNode n) throws PLp1Error;
   public T visit(ExitNode n) throws PLp1Error;
-  public T visit(FirstNode n) throws PLp1Error;
+//  public T visit(FirstNode n) throws PLp1Error;
   public T visit(FloatNode n) throws PLp1Error;
   public T visit(FunctionNode n) throws PLp1Error;
   public T visit(GreaterEqualNode n) throws PLp1Error;

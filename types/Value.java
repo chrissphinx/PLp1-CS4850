@@ -3,6 +3,13 @@ package types;
 public abstract class Value<T>
 {
 
-  public abstract T get();
-  public abstract String toString();
+  protected T v;
+
+  public T get() {
+    return this.v;
+  }
+
+  public void set(T v) {
+    this.v = v;
+  }
 }

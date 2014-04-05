@@ -292,13 +292,5 @@ public class PLp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements P
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitFirst(@NotNull PLp1Parser.FirstContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitSwitchCases(@NotNull PLp1Parser.SwitchCasesContext ctx) { return visitChildren(ctx); }
 }

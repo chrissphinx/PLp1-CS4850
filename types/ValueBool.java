@@ -2,18 +2,11 @@ package types;
 
 import java.util.Objects;
 
-public class ValueBool extends Value
+public class ValueBool extends Value<Boolean>
 {
-
-  private Boolean v;
 
   public ValueBool(boolean v) {
     this.v = v;
-  }
-
-  @Override
-  public Boolean get() {
-    return this.v;
   }
 
   @Override
