@@ -116,31 +116,7 @@ public class PLp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements P
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitNumberp(@NotNull PLp1Parser.NumberpContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitLength(@NotNull PLp1Parser.LengthContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitCreateExpr(@NotNull PLp1Parser.CreateExprContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitListp(@NotNull PLp1Parser.ListpContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -164,14 +140,6 @@ public class PLp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements P
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitEqualp(@NotNull PLp1Parser.EqualpContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitLetDecls(@NotNull PLp1Parser.LetDeclsContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -181,22 +149,6 @@ public class PLp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements P
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitInit(@NotNull PLp1Parser.InitContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitList(@NotNull PLp1Parser.ListContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitPairp(@NotNull PLp1Parser.PairpContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -252,14 +204,6 @@ public class PLp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements P
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitEmptyp(@NotNull PLp1Parser.EmptypContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
 	@Override public T visitConstantExp(@NotNull PLp1Parser.ConstantExpContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -269,22 +213,6 @@ public class PLp1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements P
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
 	@Override public T visitMethod(@NotNull PLp1Parser.MethodContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitRest(@NotNull PLp1Parser.RestContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
-	 */
-	@Override public T visitInsert(@NotNull PLp1Parser.InsertContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

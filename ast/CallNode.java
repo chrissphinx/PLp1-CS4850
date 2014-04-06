@@ -14,7 +14,7 @@ public class CallNode extends BinaryNode
   public CallNode() {
   }
 
-  public ASTNode getExpression() {
+  public ASTNode getVarRef() {
     return getFirst();
   }
 

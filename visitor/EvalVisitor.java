@@ -5,6 +5,9 @@ import java.util.List;
 
 import ast.*;
 import errors.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import types.*;
 
 public class EvalVisitor implements Visitor<Value>
@@ -85,8 +88,11 @@ public class EvalVisitor implements Visitor<Value>
   public Value visit(CallNode n) throws PLp1Error {
     Value v = (Value) n.getArgumentList().accept(this);
     List<Value> a = (List) v.get();
-    return ((Builtin) n.getExpression().accept(this)).invoke(env, a);
-//    throw new UnsupportedOperationException("Not supported yet.");
+    try {
+      return ((Builtin) n.getVarRef().accept(this)).invoke(env, a);
+    } catch (ClassCastException|NullPointerException e) {
+      throw new PLp1Error("Invalid Function Call");
+    }
   }
 
   @Override
@@ -165,23 +171,6 @@ public class EvalVisitor implements Visitor<Value>
   }
 
   @Override
-  public Value visit(EmptyPNode n) throws PLp1Error {
-    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `emptyp -> ()`");
-
-    try {
-      l = (List) l.get(0).get();
-    } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `emptyp -> ()`");
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `emptyp -> ()`");
-    }
-
-    if (l.isEmpty()) return new ValueBool(true);
-    else return new ValueBool(false);
-  }
-
-  @Override
   public Value visit(EqualNode n) throws PLp1Error {
     Value l = (Value) n.getLeft().accept(this);
     Value r = (Value) n.getRight().accept(this);
@@ -203,32 +192,6 @@ public class EvalVisitor implements Visitor<Value>
   }
 
   @Override
-  public Value visit(EqualPNode n) throws PLp1Error {
-    List<Value> a = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (a.size() > 2) throw new PLp1ArgumentsError("Too Many Arguments for `equalp -> ()`");
-    ValueList l;
-    ValueList r;
- 
-    try {
-      l = ((ValueList) a.get(0));
-    } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `equalp -> ()`");
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `equalp -> ()`");
-    }
-
-    try {
-      r = ((ValueList) a.get(1));
-    } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `equalp -> ()`");
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `equalp -> ()`");
-    }
-
-    return new ValueBool((Boolean) l.equals(r));
-  }
-
-  @Override
   public Value visit(ExitNode n) throws PLp1Error {
     int s = 0;
     try {
@@ -237,26 +200,6 @@ public class EvalVisitor implements Visitor<Value>
     System.exit(s);
     return null;
   }
-  
-//  @Override
-//  public Value visit(FirstNode n) throws PLp1Error {
-//    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-//    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `first -> ()`");
-//
-//    try {
-//      l = (List) l.get(0).get();
-//    } catch (ClassCastException e) {
-//      throw new PLp1TypeError("Invalid Type for `first -> ()`");
-//    } catch (IndexOutOfBoundsException e) {
-//      throw new PLp1ArgumentsError("Not Enough Arguments for `first -> ()`");
-//    }
-//
-//    try {
-//      return (Value) l.get(0);
-//    } catch (IndexOutOfBoundsException e) {
-//      throw new PLp1ArgumentsError("Empty List Given to `first -> ()`");
-//    }
-//  }
 
   @Override
   public Value visit(FloatNode n) throws PLp1Error {
@@ -330,29 +273,6 @@ public class EvalVisitor implements Visitor<Value>
   }
 
   @Override
-  public Value visit(InsertNode n) throws PLp1Error {
-    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (l.size() > 2) throw new PLp1ArgumentsError("Too Many Arguments for `insert -> ()`");
-    Value v;
-
-    try {
-      v = (Value) l.get(0);
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `insert -> ()`");
-    }
-      
-    try {
-      l = (List) l.get(1).get();
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `insert -> ()`");
-    } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `insert -> ()`");
-    }
-
-    l.add(0, v); return new ValueList(l);
-  }
-
-  @Override
   public Value visit(InstanceNode n) throws PLp1Error {
     throw new UnsupportedOperationException("Not supported yet.");
   }
@@ -365,22 +285,6 @@ public class EvalVisitor implements Visitor<Value>
   @Override
   public Value visit(LambdaNode n) throws PLp1Error {
     throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public Value visit(LengthNode n) throws PLp1Error {
-    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `length -> ()`");
-    
-    try {
-      l = (List) l.get(0).get();
-    } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `length -> ()`");
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `length -> ()`");
-    }
-
-    return new ValueInt(l.size());
   }
 
   @Override
@@ -438,27 +342,6 @@ public class EvalVisitor implements Visitor<Value>
   @Override
   public Value visit(LetNode n) throws PLp1Error {
     throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public Value visit(ListPNode n) throws PLp1Error {
-    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `listp -> ()`");
-    
-    try {
-      l = (List) l.get(0).get();
-    } catch (ClassCastException e) {
-      return new ValueBool(false);
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `listp -> ()`");
-    }
-
-    return new ValueBool(true);
-  }
-
-  @Override
-  public Value visit(MakeListNode n) throws PLp1Error {
-    return (ValueList) n.getArgumentList().accept(this);
   }
 
   @Override
@@ -535,23 +418,6 @@ public class EvalVisitor implements Visitor<Value>
   }
 
   @Override
-  public Value visit(NumberPNode n) throws PLp1Error {
-    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `numberp -> ()`");
-    Value v;
-    
-    try {
-      v = l.get(0);
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `numberp -> ()`");
-    }
-
-    if (v instanceof ValueInt || v instanceof ValueFloat)
-      return new ValueBool(true);
-    else return new ValueBool(false);
-  }
-
-  @Override
   public Value visit(OrNode n) throws PLp1Error {
     Value l = (Value) n.getLeft().accept(this);
     Value r = (Value) n.getRight().accept(this);
@@ -561,23 +427,6 @@ public class EvalVisitor implements Visitor<Value>
     } catch (ClassCastException e) {}
 
     throw new PLp1TypeError("Invalid Types for Logical Or");
-  }
-
-  @Override
-  public Value visit(PairPNode n) throws PLp1Error {
-    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `pairp -> ()`");
-    
-    try {
-      l = (List) l.get(0).get();
-    } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `pairp -> ()`");
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `pairp -> ()`");
-    }
-
-    if (!l.isEmpty()) return new ValueBool(true);
-    else return new ValueBool(false);
   }
 
   @Override
@@ -592,25 +441,6 @@ public class EvalVisitor implements Visitor<Value>
     for (ASTNode a : n.getList()) v = (Value) a.accept(this);
 
     return v;
-  }
-
-  public Value visit(RestNode n) throws PLp1Error {
-    List<Value> l = ((ValueList) n.getArgumentList().accept(this)).get();
-    if (l.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `rest -> ()`");
-
-    try {
-      l = (List) l.get(0).get();
-    } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `rest -> ()`");
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Not Enough Arguments for `rest -> ()`");
-    }
-
-    try {
-      l.remove(0); return new ValueList(l);
-    } catch (IndexOutOfBoundsException e) {
-      throw new PLp1ArgumentsError("Empty List Given to `rest -> ()`");
-    }
   }
 
   @Override
@@ -655,9 +485,13 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(VarRefNode n) throws PLp1Error {
-    return env.get(n.getId());
-//      return new First();
-//    } else return null;
-    // throw new UnsupportedOperationException("Not supported yet.");
+    Iterator<HashMap<String, Value>> i = env.iterator();
+
+    while (i.hasNext()) {
+      try {
+        return i.next().get(n.getId());
+      } catch (NullPointerException e) {}
+    }
+    throw new PLp1Error("Invalid Variable Reference");
   }
 }

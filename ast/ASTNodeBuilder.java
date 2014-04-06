@@ -54,21 +54,12 @@ public class ASTNodeBuilder
       case DIV:
         node = new DivideNode();
         break;
-      case EMPTYP:
-        node = new EmptyPNode();
-        break;
       case EQ:
         node = new EqualNode();
-        break;
-      case EQUALP:
-        node = new EqualPNode();
         break;
       case EXIT:
         node = new ExitNode();
         break;
-//      case FIRST:
-//        node = new FirstNode();
-//        break;
       case FLOAT:
         node = new FloatNode();
         break;
@@ -87,9 +78,6 @@ public class ASTNodeBuilder
       case INIT:
         node = new InitNode();
         break;
-      case INSERT:
-        node = new InsertNode();
-        break;
       case INSTANCE:
         node = new InstanceNode();
         break;
@@ -99,9 +87,6 @@ public class ASTNodeBuilder
       case LAMBDA:
         node = new LambdaNode();
         break;
-      case LENGTH:
-        node = new LengthNode();
-        break;
       case LETDECL:
         node = new LetDeclNode();
         break;
@@ -110,12 +95,6 @@ public class ASTNodeBuilder
         break;
       case LET:
         node = new LetNode();
-        break;
-      case LIST:
-        node = new MakeListNode();
-        break;
-      case LISTP:
-        node = new ListPNode();
         break;
       case LT:
         node = new LessNode();
@@ -144,23 +123,14 @@ public class ASTNodeBuilder
       case NULL:
         node = new NullNode();
         break;
-      case NUMBERP:
-        node = new NumberPNode();
-        break;
       case OR:
         node = new OrNode();
-        break;
-      case PAIRP:
-        node = new PairPNode();
         break;
       case PARAMS:
         node = new ParamsNode();
         break;
       case PROGRAM:
         node = new ProgramNode();
-        break;
-      case REST:
-        node = new RestNode();
         break;
       case STRING:
         node = new StringNode();
