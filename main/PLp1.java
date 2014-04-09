@@ -17,9 +17,12 @@ import visitor.EvalVisitor;
 import visitor.SourceVisitor;
 import parser.PLp1Lexer;
 import parser.PLp1Parser;
+import visitor.Environment;
 
 public class PLp1
 {
+
+  private static final Environment global = new Environment();
 
   public static void main(String args []) throws FileNotFoundException, IOException {
     if (args.length > 0) {
@@ -56,9 +59,9 @@ public class PLp1
     }
 
     try {
-      System.out.println("= " + ast.accept(new EvalVisitor()));
+      System.out.println("= " + ast.accept(new EvalVisitor(global)));
     } catch (PLp1Error e) {
-      System.out.println("ERROR: " + e.getMessage());
+      System.err.println("ERROR: " + e.getMessage());
     }
   } 
 

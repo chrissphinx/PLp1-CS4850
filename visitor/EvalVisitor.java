@@ -15,8 +15,8 @@ public class EvalVisitor implements Visitor<Value>
 
   private Environment env;
 
-  public EvalVisitor() {
-    env = new Environment();
+  public EvalVisitor(Environment env) {
+    this.env = env;
   }
 
   @Override
@@ -67,7 +67,16 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(AssignNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    String k = n.getId();
+
+    if (env.containsKey(k)) {
+      throw new PLp1Error("Variable " + k + " Previously Defined");
+    }
+
+    Value v = (Value) n.getExpression().accept(this);
+    env.put(k, v);
+
+    return v;
   }
 
   @Override
@@ -88,8 +97,9 @@ public class EvalVisitor implements Visitor<Value>
   public Value visit(CallNode n) throws PLp1Error {
     Value v = (Value) n.getArgumentList().accept(this);
     List<Value> a = (List) v.get();
+
     try {
-      return ((Builtin) n.getVarRef().accept(this)).invoke(env, a);
+      return ((Function) n.getVarRef().accept(this)).invoke(a);
     } catch (ClassCastException|NullPointerException e) {
       throw new PLp1Error("Invalid Function Call");
     }
@@ -485,13 +495,12 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(VarRefNode n) throws PLp1Error {
-    Iterator<HashMap<String, Value>> i = env.iterator();
+    Value v = env.get(n.getId());
 
-    while (i.hasNext()) {
-      try {
-        return i.next().get(n.getId());
-      } catch (NullPointerException e) {}
+    if (v == null) {
+      throw new PLp1Error("Invalid Variable Reference");
     }
-    throw new PLp1Error("Invalid Variable Reference");
+
+    return env.get(n.getId());
   }
 }

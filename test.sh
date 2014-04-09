@@ -5,7 +5,7 @@ passed=80
 for f in ../input/*
 do
 	echo -e "\033[33m$(basename $f)\033[0m:\033[1m"
-	java -jar ../dist/PLp1.jar $f 2>/dev/null || let "passed -= 1"
+	java -jar ../dist/PLp1.jar $f || let "passed -= 1"
 	echo -ne "\033[0m"
 done
 
