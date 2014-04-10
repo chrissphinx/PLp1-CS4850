@@ -1,7 +1,6 @@
 package visitor;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import types.Value;
 
 public class Environment extends HashMap<String, Value>
@@ -15,5 +14,16 @@ public class Environment extends HashMap<String, Value>
 
   public Environment(Environment e) {
     this.parent = e;
+  }
+
+  @Override
+  public Value get(Object k) {
+    Value v = super.get(k);
+
+    if (v == null && parent != null) {
+      v = parent.get(k);
+    }
+
+    return v;
   }
 }

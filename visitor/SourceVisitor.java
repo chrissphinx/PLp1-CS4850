@@ -204,7 +204,7 @@ public class SourceVisitor implements Visitor<String>
 
   @Override
   public String visit(LetNode n) throws PLp1Error {
-    return "let (" + n.getLetDecls().accept(this) + ") { " + n.getExpressionList().accept(this) + " }";
+    return "let (" + n.getLetDecls().accept(this) + ") { " + n.getBody().accept(this) + " }";
   }
 
   @Override

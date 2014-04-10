@@ -5,9 +5,11 @@ import java.util.List;
 
 import ast.*;
 import errors.*;
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import types.*;
 
 public class EvalVisitor implements Visitor<Value>
@@ -341,17 +343,28 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(LetDeclNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return new ValueMapEntry(n.getId(), (Value) n.getExpression().accept(this));
   }
 
   @Override
   public Value visit(LetDeclsNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    Iterator<ASTNode> i = n.getList().iterator();
+    Map<String, Value> m = new HashMap<>();
+
+    while (i.hasNext()) {
+      Entry<String, Value> v = ((ValueMapEntry) i.next().accept(this)).get();
+      m.put(v.getKey(), v.getValue());
+    }
+
+    return new ValueMap(m);
   }
 
   @Override
   public Value visit(LetNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    Map<String, Value> a = ((ValueMap) n.getLetDecls().accept(this)).get();
+    Environment child = new Environment(env);
+    child.putAll(a);
+    return (Value) n.getBody().accept(new EvalVisitor(child));
   }
 
   @Override

@@ -18,7 +18,7 @@ public class LetNode extends BinaryNode
     return getFirst();
   }
 
-  public ASTNode getExpressionList() {
+  public ASTNode getBody() {
     return getSecond();
   }
 }
