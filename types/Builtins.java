@@ -31,21 +31,26 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `first -> ()`");
+      if (a.size() > 1) throw new PLp1ArgumentsError(this.toString());
 
       try {
         a = (List) a.get(0).get();
       } catch (ClassCastException e) {
-        throw new PLp1TypeError("Invalid Type for `first -> ()`");
+        throw new PLp1TypeError(this.toString());
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `first -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       try {
         return (Value) a.get(0);
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Empty List Given to `first -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
+    }
+
+    @Override
+    public String toString() {
+      return "`first -> (L)`";
     }
   }
 
@@ -54,21 +59,26 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `rest -> ()`");
+      if (a.size() > 1) throw new PLp1ArgumentsError(this.toString());
 
       try {
         a = (List) a.get(0).get();
       } catch (ClassCastException e) {
-        throw new PLp1TypeError("Invalid Type for `rest -> ()`");
+        throw new PLp1TypeError(this.toString());
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `rest -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       try {
         a.remove(0); return new ValueList(a);
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Empty List Given to `rest -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
+    }
+
+    @Override
+    public String toString() {
+      return "`rest -> (L)`";
     }
   }
 
@@ -77,24 +87,29 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 2) throw new PLp1ArgumentsError("Too Many Arguments for `insert -> ()`");
+      if (a.size() > 2) throw new PLp1ArgumentsError(this.toString());
       Value v;
 
       try {
         v = (Value) a.get(0);
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `insert -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
        
       try {
         a = (List) a.get(1).get();
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `insert -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       } catch (ClassCastException e) {
-        throw new PLp1TypeError("Invalid Type for `insert -> ()`");
+        throw new PLp1TypeError(this.toString());
       }
 
       a.add(0, v); return new ValueList(a);
+    }
+
+    @Override
+    public String toString() {
+      return "`insert -> (L, v)`";
     }
   }
 
@@ -112,18 +127,23 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `emptyp -> ()`");
+      if (a.size() > 1) throw new PLp1ArgumentsError(this.toString());
 
       try {
         a = (List) a.get(0).get();
       } catch (ClassCastException e) {
-        throw new PLp1TypeError("Invalid Type for `emptyp -> ()`");
+        throw new PLp1TypeError(this.toString());
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `emptyp -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       if (a.isEmpty()) return new ValueBool(true);
       else return new ValueBool(false);
+    }
+
+    @Override
+    public String toString() {
+      return "`emptyp -> (L)`";
     }
   }
 
@@ -132,18 +152,23 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `pairp -> ()`");
+      if (a.size() > 1) throw new PLp1ArgumentsError(this.toString());
       
       try {
         a = (List) a.get(0).get();
       } catch (ClassCastException e) {
-        throw new PLp1TypeError("Invalid Type for `pairp -> ()`");
+        throw new PLp1TypeError(this.toString());
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `pairp -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       if (!a.isEmpty()) return new ValueBool(true);
       else return new ValueBool(false);
+    }
+
+    @Override
+    public String toString() {
+      return "`pairp -> (L)`";
     }
   }
 
@@ -152,17 +177,22 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `listp -> ()`");
+      if (a.size() > 1) throw new PLp1ArgumentsError(this.toString());
      
       try {
         a = (List) a.get(0).get();
       } catch (ClassCastException e) {
         return new ValueBool(false);
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `listp -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       return new ValueBool(true);
+    }
+
+    @Override
+    public String toString() {
+      return "`listp -> (L)`";
     }
   }
 
@@ -171,27 +201,32 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 2) throw new PLp1ArgumentsError("Too Many Arguments for `equalp -> ()`");
+      if (a.size() > 2) throw new PLp1ArgumentsError(this.toString());
       ValueList l;
       ValueList r;
 
       try {
         l = ((ValueList) a.get(0));
       } catch (ClassCastException e) {
-        throw new PLp1TypeError("Invalid Type for `equalp -> ()`");
+        throw new PLp1TypeError(this.toString());
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `equalp -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       try {
         r = ((ValueList) a.get(1));
       } catch (ClassCastException e) {
-        throw new PLp1TypeError("Invalid Type for `equalp -> ()`");
+        throw new PLp1TypeError(this.toString());
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `equalp -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       return new ValueBool((Boolean) l.equals(r));
+    }
+
+    @Override
+    public String toString() {
+      return "`equalp -> (L, L)`";
     }
   }
 
@@ -200,17 +235,22 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `length -> ()`");
+      if (a.size() > 1) throw new PLp1ArgumentsError(this.toString());
 
       try {
         a = (List) a.get(0).get();
       } catch (ClassCastException e) {
-        throw new PLp1TypeError("Invalid Type for `length -> ()`");
+        throw new PLp1TypeError(this.toString());
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `length -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       return new ValueInt(a.size());
+    }
+
+    @Override
+    public String toString() {
+      return "`length -> (L)`";
     }
   }
 
@@ -219,18 +259,23 @@ public abstract class Builtins extends Function
 
     @Override
     public Value invoke(List<Value> a) throws PLp1Error {
-      if (a.size() > 1) throw new PLp1ArgumentsError("Too Many Arguments for `numberp -> ()`");
+      if (a.size() > 1) throw new PLp1ArgumentsError(this.toString());
       Value v;
       
       try {
         v = a.get(0);
       } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError("Not Enough Arguments for `numberp -> ()`");
+        throw new PLp1ArgumentsError(this.toString());
       }
 
       if (v instanceof ValueInt || v instanceof ValueFloat)
         return new ValueBool(true);
       else return new ValueBool(false);
+    }
+
+    @Override
+    public String toString() {
+      return "`numberp -> (L)`";
     }
   }
 }

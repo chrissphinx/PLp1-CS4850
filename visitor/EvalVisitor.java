@@ -5,17 +5,17 @@ import java.util.List;
 
 import ast.*;
 import errors.*;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import static main.PLp1.global;
 import types.*;
 
 public class EvalVisitor implements Visitor<Value>
 {
 
-  private Environment env;
+  final private Environment env;
 
   public EvalVisitor(Environment env) {
     this.env = env;
@@ -39,7 +39,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueFloat((Float) l.get() + (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Addition");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -51,7 +51,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool((Boolean) l.get() && (Boolean) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Logical And");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -70,12 +70,8 @@ public class EvalVisitor implements Visitor<Value>
   @Override
   public Value visit(AssignNode n) throws PLp1Error {
     String k = n.getId();
-
-    if (env.containsKey(k)) {
-      throw new PLp1Error("Variable " + k + " Previously Defined");
-    }
-
     Value v = (Value) n.getExpression().accept(this);
+
     env.put(k, v);
 
     return v;
@@ -103,7 +99,7 @@ public class EvalVisitor implements Visitor<Value>
     try {
       return ((Function) n.getVarRef().accept(this)).invoke(a);
     } catch (ClassCastException|NullPointerException e) {
-      throw new PLp1Error("Invalid Function Call");
+      throw new PLp1InvalidFunction((String) n.accept(new SourceVisitor()));
     }
   }
 
@@ -114,7 +110,7 @@ public class EvalVisitor implements Visitor<Value>
     try {
       v = (ValueBool) n.getCondition().accept(this);
     } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `case` Condition");
+      throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
     }
 
     if (v.get())
@@ -179,7 +175,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueFloat((Float) l.get() / (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Division");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -200,7 +196,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool((Float) l.get() == (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Equal To");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -220,7 +216,12 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(FunctionNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    String a = n.getId();
+    Closure c = new Closure(a,
+                            ((ValueList) n.getParamList().accept(this)).get(),
+                            n.getExpressionList(),
+                            global);
+    return global.put(a, c);
   }
 
   @Override
@@ -241,7 +242,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool((Float) l.get() >= (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Greater Than or Equal To");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -262,7 +263,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool((Float) l.get() > (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Greater Than");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -272,7 +273,7 @@ public class EvalVisitor implements Visitor<Value>
     try {
       v = (ValueBool) n.getIf().accept(this);
     } catch (ClassCastException e) {
-      throw new PLp1TypeError("Invalid Type for `if` Condition");
+      throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
     }
 
     if (v.get()) return (Value) n.getThen().accept(this);
@@ -296,7 +297,10 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(LambdaNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return new Closure(null,
+                       ((ValueList) n.getParamList().accept(this)).get(),
+                       n.getExpressionList(),
+                       env);
   }
 
   @Override
@@ -317,7 +321,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool((Float) l.get() <= (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Less Than or Equal To");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -338,7 +342,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool((Float) l.get() < (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Less Than");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -400,7 +404,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueFloat((Float) l.get() * (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Multiplication");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -421,7 +425,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool((Float) l.get() != (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Not Equal To");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -432,7 +436,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool(!(Boolean) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Logical Not");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -449,12 +453,20 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueBool((Boolean) l.get() || (Boolean) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Logical Or");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
   public Value visit(ParamsNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    if (n.getList().isEmpty()) {
+      return new ValueList();
+    } else {
+      List<Value> l = new LinkedList<>();
+
+      for (ASTNode o : n.getList()) l.add((Value) o.accept(this));
+
+      return new ValueList(l);
+    }
   }
 
   @Override
@@ -489,7 +501,7 @@ public class EvalVisitor implements Visitor<Value>
       return new ValueFloat((Float) l.get() - (Float) r.get());
     } catch (ClassCastException e) {}
 
-    throw new PLp1TypeError("Invalid Types for Subtraction");
+    throw new PLp1TypeError((String) n.accept(new SourceVisitor()));
   }
 
   @Override
@@ -503,7 +515,7 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(VarDefNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return new ValueString(n.getId());
   }
 
   @Override
@@ -511,9 +523,9 @@ public class EvalVisitor implements Visitor<Value>
     Value v = env.get(n.getId());
 
     if (v == null) {
-      throw new PLp1Error("Invalid Variable Reference");
+      throw new PLp1InvalidVariable((String) n.accept(new SourceVisitor()));
     }
 
-    return env.get(n.getId());
+    return v;
   }
 }

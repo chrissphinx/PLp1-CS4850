@@ -17,6 +17,13 @@ public class Environment extends HashMap<String, Value>
   }
 
   @Override
+  public Value put(String k, Value v) {
+    super.put(k, v);
+
+    return v;
+  }
+
+  @Override
   public Value get(Object k) {
     Value v = super.get(k);
 

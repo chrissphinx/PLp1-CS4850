@@ -16,4 +16,9 @@ public class PLp1ArgumentsError extends PLp1Error
   public PLp1ArgumentsError(String s, Throwable t) {
     super(s, t);
   }
+
+  @Override
+  public String toString() {
+    return "Invalid Arguments @ " + this.getMessage();
+  }
 }

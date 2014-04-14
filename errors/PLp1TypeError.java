@@ -16,4 +16,9 @@ public class PLp1TypeError extends PLp1Error
   public PLp1TypeError(String s, Throwable t) {
     super(s, t);
   }
+
+  @Override
+  public String toString() {
+    return "Invalid Type @ " + this.getMessage();
+  }
 }
