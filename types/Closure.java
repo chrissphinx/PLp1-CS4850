@@ -3,6 +3,7 @@ package types;
 import ast.ASTNode;
 import errors.PLp1ArgumentsError;
 import errors.PLp1Error;
+import errors.PLp1TypeError;
 import java.util.Iterator;
 import java.util.List;
 import visitor.Environment;
@@ -27,7 +28,10 @@ public class Closure extends Function
   public Value invoke(List<Value> args) throws PLp1Error {
     Environment e = new Environment(env);
 
-    if (params.size() != args.size()) throw new PLp1ArgumentsError((String) this.toString());
+    if (params.size() != args.size()) {
+      String p = params.toString();
+      throw new PLp1ArgumentsError(this.toString());
+    }
     Iterator<Value> s = params.iterator();
     Iterator<Value> a = args.iterator();
 
@@ -35,16 +39,20 @@ public class Closure extends Function
       e.put((String) s.next().get(), (Value) a.next());
     }
 
-    return (Value) body.accept(new EvalVisitor(e));
+    try {
+      return (Value) body.accept(new EvalVisitor(e));
+    } catch (PLp1TypeError t) {
+      throw new PLp1TypeError(this.toString());
+    }
   }
 
   @Override
   public String toString() {
+    String p = params.toString().replaceAll("\\[|\\]", "");
     if (name != null) {
-      StringBuilder p = new StringBuilder(params.toString());
-      return "`" + name + " -> (" + p.substring(1, p.length() - 1) + ")`";
+      return "`" + name + " -> (" + p + ")`";
     } else {
-      return "#function";
+      return "`lambda -> (" + p + ")`";
     }
   }
 }

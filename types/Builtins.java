@@ -3,13 +3,11 @@ package types;
 import errors.*;
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedList;
 import visitor.Environment;
 
 public abstract class Builtins extends Function
 {
-
-  @Override
-  public String toString() { return "#builtin"; }
 
   static public HashMap<String, Value> getAll() {
     return new HashMap<String, Value>(){{
@@ -69,11 +67,8 @@ public abstract class Builtins extends Function
         throw new PLp1ArgumentsError(this.toString());
       }
 
-      try {
-        a.remove(0); return new ValueList(a);
-      } catch (IndexOutOfBoundsException e) {
-        throw new PLp1ArgumentsError(this.toString());
-      }
+      int n; if ((n = a.size()) < 1) throw new PLp1ArgumentsError(this.toString());
+      return new ValueList(a.subList(1, n));
     }
 
     @Override
@@ -104,12 +99,13 @@ public abstract class Builtins extends Function
         throw new PLp1TypeError(this.toString());
       }
 
-      a.add(0, v); return new ValueList(a);
+      List<Value> l = new LinkedList<>(a);
+      l.add(0, v); return new ValueList(l);
     }
 
     @Override
     public String toString() {
-      return "`insert -> (L, v)`";
+      return "`insert -> (v, L)`";
     }
   }
 
@@ -275,7 +271,7 @@ public abstract class Builtins extends Function
 
     @Override
     public String toString() {
-      return "`numberp -> (L)`";
+      return "`numberp -> (v)`";
     }
   }
 }

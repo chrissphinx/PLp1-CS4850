@@ -1,9 +1,6 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -13,6 +10,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import ast.ASTGenerator;
 import ast.ASTNode;
 import errors.PLp1Error;
+import jline.console.ConsoleReader;
+import jline.console.UserInterruptException;
 import visitor.EvalVisitor;
 import visitor.SourceVisitor;
 import parser.PLp1Lexer;
@@ -22,26 +21,36 @@ import visitor.Environment;
 public class PLp1
 {
 
-  public static final Environment global = new Environment();
+  public static Environment global = new Environment();
 
-  public static void main(String args []) throws FileNotFoundException, IOException {
+  public static void main(String[] args) throws Exception {
     if (args.length > 0) {
       processCode(new ANTLRFileStream(args[0]));
     } else {
-      repl();
+      ConsoleReader console = new ConsoleReader();
+      console.setPrompt("> ");
+      console.setHandleUserInterrupt(true);
+      String line;
+
+      try {
+        while ((line = console.readLine()) != null) {
+          if (line.toLowerCase().startsWith(":exit"))
+            System.exit(0);
+          if (line.toLowerCase().startsWith(":load")) {
+            String f = line.substring(6, line.length());
+            processCode(new ANTLRFileStream(f));
+            continue;
+          }
+          if (line.toLowerCase().startsWith(":reset")) {
+            global = new Environment();
+            continue;
+          }
+
+          processCode(new ANTLRInputStream(line));
+        } console.println();
+      } catch (UserInterruptException e) {}
+      console.flush(); System.exit(0);
     }
-  }
-
-  private static String getUserInput() throws IOException {
-    String line;
-
-    InputStreamReader reader = new InputStreamReader(System.in);
-    BufferedReader in = new BufferedReader(reader);
-
-    line = in.readLine();
-    if(line == null) { System.out.print("\n"); System.exit(0); }
-
-    return line;
   }
 
   private static void processCode(ANTLRInputStream code) throws IOException {
@@ -62,22 +71,8 @@ public class PLp1
       System.out.println("= " + ast.accept(new EvalVisitor(global)));
     } catch (PLp1Error e) {
       System.err.println("ERROR: " + e);
+    } catch (StackOverflowError e) {
+      System.err.println("ERROR: Recursion Depth");
     }
-  } 
-
-  private static void repl() {
-    System.out.print( "> ");
-
-    try {
-      processCode(new ANTLRInputStream(getUserInput()));
-    } catch (IOException e) {
-      System.out.println("Error reading input");
-    } catch (Error e) {
-      System.out.println("Uncaught Interpreter Error: " + e);
-    } catch (Exception e) {
-      System.out.println("Uncaught Interpreter Exception: " + e);
-    }
-
-    repl();
   }
 }
