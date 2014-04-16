@@ -67,8 +67,11 @@ public abstract class Builtins extends Function
         throw new PLp1ArgumentsError(this.toString());
       }
 
-      int n; if ((n = a.size()) < 1) throw new PLp1ArgumentsError(this.toString());
-      return new ValueList(a.subList(1, n));
+      try {
+        a.remove(0); return new ValueList(a);
+      } catch (IndexOutOfBoundsException e) {
+        return new ValueNull();
+      }
     }
 
     @Override
@@ -99,8 +102,7 @@ public abstract class Builtins extends Function
         throw new PLp1TypeError(this.toString());
       }
 
-      List<Value> l = new LinkedList<>(a);
-      l.add(0, v); return new ValueList(l);
+      a.add(0, v); return new ValueList(a);
     }
 
     @Override

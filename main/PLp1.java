@@ -37,7 +37,8 @@ public class PLp1
           if (line.toLowerCase().startsWith(":exit"))
             System.exit(0);
           if (line.toLowerCase().startsWith(":load")) {
-            String f = line.substring(6, line.length());
+            String f = line.substring(6, line.length())
+                           .replace("~",System.getProperty("user.home"));
             processCode(new ANTLRFileStream(f));
             continue;
           }
@@ -73,6 +74,8 @@ public class PLp1
       System.err.println("ERROR: " + e);
     } catch (StackOverflowError e) {
       System.err.println("ERROR: Recursion Depth");
+    } catch (NullPointerException e) {
+      System.err.println("ERROR: Null Pointer");
     }
   }
 }

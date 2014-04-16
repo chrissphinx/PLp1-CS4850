@@ -441,7 +441,7 @@ public class EvalVisitor implements Visitor<Value>
 
   @Override
   public Value visit(NullNode n) throws PLp1Error {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return new ValueNull();
   }
 
   @Override
@@ -526,6 +526,8 @@ public class EvalVisitor implements Visitor<Value>
       throw new PLp1InvalidVariable((String) n.accept(new SourceVisitor()));
     }
 
+    if (v instanceof ValueList)
+      return new ValueList((List) v.get());
     return v;
   }
 }
